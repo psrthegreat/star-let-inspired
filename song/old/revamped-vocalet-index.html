@@ -14,26 +14,63 @@
 			#youtubeOptions {
 				margin-top: 20px;
 			}
+
+			.nav-tabs > li > a {
+				line-height: 2.4em;
+			}
+
+			.youNav {
+				font-size: 15px;
+				padding: 1px;
+			}
+			.youtubeSelection {
+				margin-left: 0px;
+				margin-bottom: 0px;
+				margin-top: 0px;
+				padding: 15px;
+				cursor: pointer;
+				
+			}
+			  .navbar {
+    margin: 0 0 5px;
+    padding-bottom: 3px;
+}
+			
+			.well {
+min-height: 20px;
+padding: 19px;
+margin-bottom: -2 px;
+background-color: #ffffff;
+border:1px solid #eee;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+-moz-box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+}
         </style>
     </head>
     <body>
-        <section class="container">
-            <nav class="navbar">
+        <section class="container" id= "top">
+            <div class="navbar">
                 <div class="navbar-inner">
-                    <div class="container">
-                        <a href="/" class="brand"><img id="logo" src="../logo-small.png">Vocalet <small></small></a>
-                        Preview
-                        <ul class="nav">
-                            <li>
-                                <a href="coming-soon.html">Home </a>
-                            </li>
-                            <li>
-                                <a href="coming-soon.html">Sign Up Early </a>
+                        <a href="/" class="brand"><img id="logo" src="logo-small.png">Vocalet</a>
+                        <ul class="nav pull-right">
+                            <li class="divider-vertical"></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                    <form>
+                                        <input type="text" class="span2" placeholder="Login">
+                                        <input type="text" class="span2" placeholder="Password">
+                                        <input type="submit" value="Login" class="btn btn-primary"/>
+                                    </form>
+                                </div>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </nav>
+                  </div>
+            </div>
         </section>
         <section class="section-box" id = "content-section">
             <div class="container">
@@ -42,35 +79,37 @@
                         <div class = "contents" >
                             <div class="row">
                                 <div id = "recSongDisplay" class="row">
-                                    <ul class=" nav-tabs nav-stacked" id= "songsList"></ul>
+                                    <ul class="nav nav-tabs nav-stacked" id= "songsList"></ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id = "right-col" class = "span5 ">
+                    <div id = "right-col" class = "span7 ">
                         <div class = "contents">
-                            <div id= "midRight" class = "row well">
-                                <h2 style="font-size: 1.4em;"> Select your favourite <strong>genre</strong> and <strong>song</strong></h2>
-                            </div>
-                            <div id = "notification" class="hidden">
-                                <p>
-                                    Now go ahead and select from the list below!
-                                </p>
-                            </div>
                             <div id = "finalRight" class="row">
-                                <ul class="nav nav-tabs">
+                               
+                                <div id = "youtubeFrame" class = "well"></div>
+                                <div id = "youtubeOptions">
+                                     <ul class="nav nav-tabs">
                                     <li class ="active">
-                                        <a href="#lyrics" data-toggle="tab">Lyrics</a>
+                                        <a href="#lyrics" data-toggle="tab">
+                                        <p class = "youNav">
+                                            Lyrics
+                                        </p></a>
                                     </li>
                                     <li>
-                                        <a href="#karaoke" data-toggle="tab">Karaoke</a>
+                                        <a href="#karaoke" data-toggle="tab">
+                                        <p class = "youNav">
+                                            Karaoke
+                                        </p></a>
                                     </li>
                                     <li>
-                                        <a href="#covers" data-toggle="tab">Covers</a>
+                                        <a href="#covers" data-toggle="tab">
+                                        <p class = "youNav">
+                                            Covers
+                                        </p></a>
                                     </li>
                                 </ul>
-                                <div id = "youtubeFrame" class = "well hidden"></div>
-                                <div id = "youtubeOptions">
                                     <div class="tab-content youtube">
                                         <div class="tab-pane active" id="lyrics"></div>
                                         <div class="tab-pane" id="karaoke"></div>
@@ -148,9 +187,6 @@
 
 
 			$("#songsList").on("click", ".recommendationSelection", function(event) {
-				//hide('#midRight');
-				//show('#finalRight');
-				//show('#notification');
 				$(".recommendationSelection").removeClass('active');
 				searchYoutubeMultiple($(this).text());
 				if (!$(this).hasClass('active')) {
@@ -162,7 +198,7 @@
 			$(".youtube").on("click", ".youtubeSelection", function(event) {
 				if (!$('#youframe').length) {
 					show('#youtubeFrame');
-					$('#youtubeFrame').append('<iframe id="youframe" type="text/html" height="500" width="100%" src="" allowfullscreen frameborder="0"></iframe>');
+					$('#youtubeFrame').append('<iframe id="youframe" type="text/html" height="300" width="100%" src="" allowfullscreen frameborder="0"></iframe>');
 				}
 				var link = $(this).attr('id');
 				$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
