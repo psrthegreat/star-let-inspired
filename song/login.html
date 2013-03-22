@@ -61,7 +61,8 @@
 			.navbar-inner {
 				min-height: none;
 			}
-			select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+			
+			.big-input{
 				display: inline-block;
 				height: 40px;
 				padding: 4px 6px;
@@ -95,10 +96,10 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                             <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                                <form method="post" action="verifyLogin">
+                               <form method="post" action="verifyLogin">
                                     <input type="text" class="span2" name="email" placeholder="Email">
                                     <input type="password" class="span2" name="password" placeholder="Password">
-                                    <input type="submit" value="Login" class="btn btn-primary" style= "width: 100%"/>
+                              <input type="submit" value="Login" class="btn btn-primary" style= "width: 100%"/>
                                 </form>
                             </div>
                         </li>
@@ -122,8 +123,9 @@
                         <h3 id = "passwordPrompt" class = "hidden" style= "font-size: 25px; text-align: left; font-weight: 300; color: #ddd">Now Choose a Password</h3>
                         <form id=".form-horizontal signupForm" method="post" action="addUser">
 
+
                             <div class="controls email first">
-                                <div class="input">
+                                <div class="input big-input">
                                     <input type="email" id="signupEmail" name="email" class = "input-large span4" required= "required" value="" data-err-req-message="Please enter Email." />
                                 </div>
                                 <button class="btn btn-primary span4" id="nameEnter" type="button" style= "margin-left: 0px; margin-top: 0px;">
@@ -131,10 +133,10 @@
                                 </button>
                             </div>
                             <div class = 'later hidden'>
-                                <div class="input">
+                                <div class="input big-input">
                                     <input type="password" id="signupPassword" name="password" class = "input-large span4" required="required" data-err-req-message="Please enter Password."/>
                                 </div>
-                                <button class="btn btn-primary span4" id="signup" type="button" style= "margin-left: 0px; margin-top: 0px;">
+                                <button class="btn btn-primary span4" id="signup" type="submit" style= "margin-left: 0px; margin-top: 0px;">
                                     <h3>Sign Up</h3>
                                 </button>
                                 <div class="controls"></div>
@@ -206,8 +208,12 @@
 			});
 			
 			$('#signup').on("click", function(event){
+<<<<<<< HEAD
 			   e.preventDefault();
 			   $('#signup').submit();
+=======
+			   //add your post method here   
+>>>>>>> changes small things
 			});
         </script>
     </body>
