@@ -81,7 +81,8 @@
 				padding-bottom: 3px;
 			}
 			.layer {
-				padding: 40px;
+				padding-top: 30px;
+				padding-bottom: 30px;
 			}
         </style>
     </head>
@@ -122,7 +123,7 @@
                         <form id="signupForm" method="post" action="addUser">
 
                             <div class="controls email first">
-                                <div class="BigInput input">
+                                <div class="BigInput input" style = "width: 100%">
                                     <input type="email" id="signupEmail" name="email" class = "input-large span4" required= "required" value="" data-err-req-message="Please enter Email." />
                                 </div>
                                 <button class="btn btn-primary span4" id="nameEnter" type="button" style= "margin-left: 0px; margin-top: 0px;">
@@ -130,7 +131,7 @@
                                 </button>
                             </div>
                             <div class = 'later hidden'>
-                                <div class="BigInput input">
+                                <div class="BigInput input" style = "width: 100%">
                                     <input type="password" id="signupPassword" name="password" class = "input-large span4" required="required" data-err-req-message="Please enter Password."/>
                                 </div>
                                 <button class="btn btn-primary span4" id="signup" type="button" style= "margin-left: 0px; margin-top: 0px;">
