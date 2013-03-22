@@ -180,13 +180,11 @@
 				}).done(function(xml) {
 					$('#' + tab).html("");
 					$(xml).find('entry').each(function() {
-						console.log(this);
 						var title = $(this).children('title').text();
 						var artist = $(this).children('author').children('name').text();
 						var imageSource = $(this).find("media\\:thumbnail, thumbnail").first().attr('url');
 						var link = $(this).find("id").text();
 						var videoID = link.substr(link.search('video:') + 6);
-						console.log(videoID);
 						if (artist.search(/vevo/i) == -1) {
 							$('#' + tab).append('<div class = "media well youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src=' + imageSource + '><div class = "media-body" style = "font-size: 16px;font-weight: 100;"><strong class= "media" style= "font-weight: 200">' + title + '</strong><p style = "font-weight: 100; font-size: 10px;">' + artist + '</p></div></div>');
 						}
@@ -223,35 +221,29 @@
 				$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
 				return false;
 			});
-			
-			
-			function useData(data){
-			   var song = data.song;
-			   console.log(song);
-			}
-			
+
+
+            function useData(data){
+                for (var i = 0; i < data.length; i++){
+                    var result = data[i];
+                    var song = result.song;
+                    var artist= result.artist;
+                    var total = song + " - " + artist;
+                    $('#songsList').append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + total + '</a></li>');
+                }
+            }
+
            function getNearestSongs(){
             $.post( 'getSongs',
-<<<<<<< HEAD
                     {},
-=======
->>>>>>> Getting the songs
                     function(data){
-                        console.log("data loaded" + data);
-                    }).done(function() {
-                    //console.log("post successful");
-                    useData(data);
+                    }).done(function(data) {
+                    useData(JSON.parse(data));
                 }).fail(function(data) {
-                    console.log("post not successful");
-<<<<<<< HEAD
                 });
            }
-=======
-                }); 
-           } 
-           
+
            getNearestSongs();
->>>>>>> Getting the songs
 
         </script>
     </body>
