@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SingRight</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet">
+        <link rel="stylesheet" href="css/bext.css">
+        <style>
+			#record {
+				display: block;
+				margin: 0 auto;
+				height: 90px;
+				width: 90px;
+				-moz-border-radius: 45px;
+				border-radius: 45px;
+			}
+			.left-padded {
+				padding-left: 45px;
+				padding-right: 15px;
+			}
+
+			.nav-list > .active > a, .nav-list > .active > a:hover {
+				color: #fff;
+				text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+				background-color: rgb(255, 37, 37);
+			}
+
+			#youtubeFrame {
+				margin-bottom: 0px;
+			}
+
+			#content-section {
+				padding-top: 50px;
+			}
+
+			.contents {
+				margin-right: 30px;
+				margin-left: 30px;
+			}
+
+			.well {
+				background-color: #FFFFFF;
+			}
+
+			a:link, a:visited {
+				text-decoration: none;
+			}
+
+			.youtubeSelection {
+				margin-left: 0px;
+				margin-bottom: 5px;
+				margin-top: 5px;
+				padding: 10px;
+				cursor: pointer;
+			}
+
+			.youtubeSelection:hover {
+				background-color: rgb(228, 228, 228);
+			}
+
+			.nav-tabs.nav-stacked > li > a {
+				color: #555555;
+			}
+
+			.nav-tabs.nav-stacked > li > a:hover {
+				background: rgb(255, 37, 37);
+				opacity: 0.8;
+				color: #fff;
+			}
+
+			.nav-tabs.nav-stacked > .active > a {
+				background: rgb(255, 37, 37);
+				opacity: 1;
+				color: #fff;
+			}
+
+			.center {
+				display: block;
+				margin: auto;
+			}
+        </style>
+    </head>
+    <body>
+        <section class="container">
+            <nav class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a href="/" class="brand">Singright</a>
+                        <ul class="nav">
+                            <li class="active">
+                                <a href="#">Home </a>
+                            </li>
+                            <li>
+                                <a href="#">Something</a>
+                            </li>
+                            <li>
+                                <a href="#">Features</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section class="section-box" id = "content-section">
+            <div class="container">
+                <div class="row">
+                    <div id = "left-col" class = "span7">
+                        <div class = "contents" >
+                            <div class="row">
+                                <div id = "recordingPrompt">
+                                    <h2>Start <strong>Recording now</strong></h2>
+                                    <button id= "record" class = "btn btn-primary">
+                                        Record
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id = "recSongDisplay">
+                                    <div class="tabbable">
+                                        <!-- Only required for left/right tabs -->
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab1" data-toggle="tab">Pop</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab2" data-toggle="tab">Rock</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab3" data-toggle="tab">Jazz</a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content recommendations">
+                                            <div class="tab-pane active" id="tab1">
+                                                <ul class="nav nav-tabs nav-stacked" id= "popSongsList"></ul>
+                                            </div>
+                                            <div class="tab-pane" id="tab2">
+                                                <ul class="nav nav-tabs nav-stacked" id= "rockSongsList"></ul>
+                                            </div>
+                                            <div class="tab-pane" id="tab3">
+                                                <ul class="nav nav-tabs nav-stacked" id= "jazzSongsList"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id = "right-col" class = "span5 ">
+                        <div class = "contents" style = "min-width: 400px">
+                            <div class="row">
+                                <ul class="nav nav-tabs">
+                                    <li>
+                                        <a href="#lyrics" data-toggle="tab">Lyrics</a>
+                                    </li>
+                                    <li>
+                                        <a href="#karaoke" data-toggle="tab">Karaoke</a>
+                                    </li>
+                                    <li>
+                                        <a href="#covers" data-toggle="tab">Covers</a>
+                                    </li>
+
+                                </ul>
+                                <div id = "youtubeFrame" class = "well">
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div id = "youtubeOptions">
+                                    <div class="tab-content youtube">
+                                        <div class="tab-pane active" id="original"></div>
+                                        <div class="tab-pane" id="lyrics"></div>
+                                        <div class="tab-pane" id="karaoke"></div>
+                                        <div class="tab-pane" id="covers"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <footer class="container footer-box">
+            <nav class="links">
+                <a href="#">About Us</a>
+                <a href="#">Donate</a>
+            </nav>
+            <p>
+                Singright &copy;2013
+            </p>
+        </footer>
+        <script src="js/vendor/jquery-1.9.1.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script>
+			function dumpPopularSongs(genre, limit, tab) {
+				$.ajax({
+					url : 'https://itunes.apple.com/us/rss/topsongs/limit=' + limit + '/genre=' + genre + '/xml',
+					dataType : 'xml'
+				}).done(function(xml) {
+					$(xml).find('entry').each(function() {
+						var songTitle = $(this).find('title').text();
+						$(tab).append('<li class = "recommendationSelection"><a href="#">' + songTitle + '</a></li>');
+					});
+				}).fail(function(data) {
+					$(tab).html("Could not get song");
+				});
+			}
+
+			dumpPopularSongs(14, 10, "#popSongsList");
+			dumpPopularSongs(21, 10, "#rockSongsList");
+			dumpPopularSongs(11, 10, "#jazzSongsList");
+
+			function searchYoutube(query, limit, tab) {
+				$.ajax({
+					url : "https://gdata.youtube.com/feeds/api/videos?q=" + query + " " + tab + "&max-results=" + limit + "&format=5&v=2",
+					dataType : 'xml',
+				}).done(function(xml) {
+					$('#' + tab).html("");
+					$(xml).find('entry').each(function() {
+					    console.log(this);
+						var title = $(this).children('title').text();
+						var artist = $(this).children('author').children('name').text();
+						var imageSource = $(this).find("media\\:thumbnail, thumbnail").first().attr('url');
+						var link = $(this).find("id").text();
+						var videoID = link.substr(link.search('video:') + 6);
+						console.log(videoID);
+                        if(artist.search(/vevo/i) == -1){
+						$('#' + tab).append('<div class = "media well youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src=' + imageSource + '><div class = "media-body"><strong class= "media">' + title + '</strong><p>' + artist + '</p></div></div>');
+					   }  
+					});
+				}).fail(function(data) {
+					$('#' + tab).html("Could not get song");
+				});
+			}
+
+			function searchYoutubeMultiple(song) {
+				searchYoutube(song, 3, "lyrics");
+				searchYoutube(song, 3, "karaoke");
+				searchYoutube(song, 4, "covers");
+
+			}
+
+
+			$(".recommendations").on("click", ".recommendationSelection", function(event) {
+				$(".recommendationSelection").removeClass('active');
+				searchYoutubeMultiple($(this).text());
+				if (!$(this).hasClass('active')) {
+					$(this).addClass('active');
+				}
+				return false;
+			});
+
+           
+			$(".youtube").on("click", ".youtubeSelection", function(event) {
+			    if(!$('#youframe').length){
+			        $('#youtubeFrame').append('<iframe id="youframe" type="text/html" height="500" width="100%" src="" allowfullscreen frameborder="0"></iframe>');
+            }
+                var link = $(this).attr('id');
+				$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
+				return false;
+			});
+			searchYoutubeMultiple("suit and tie by justin timberlake");
+       //"http://www.youtube.com/embed/NXGaooLi6v8?autoplay=0&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;" allowfullscreen frameborder="0"></iframe>
+                            
+        </script>
+
+    </body>
+</html>

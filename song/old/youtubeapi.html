@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Youtube Video</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="videos">
+
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+			window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')
+        </script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+			var ids = [];
+
+			function makeVideoElems(id) {
+			    var src = 'http://www.youtube.com/embed/' + id + '?enablejsapi=1&origin=http://127.0.0.1:8020';
+				console.log(src);
+				$("#videos").append('<iframe id="player" type="text/html" 560" height="315" src ="' + src + '" frameborder="0"></iframe>');
+			}
+
+
+			$.ajax({
+				url : "https://gdata.youtube.com/feeds/api/videos?q=queen&max-results=10&v=2",
+				dataType : 'xml'
+			}).done(function(xml) {
+				console.log(xml);
+				$(xml).find('entry').each(function() {
+					var id = $(this).find('id').text();
+					var videoID = id.substr(id.search('video:') + 6);
+					ids.push(videoID);
+                    makeVideoElems(videoID);
+				});
+				
+			}).fail(function(data) {
+				//unsuccessfulRequestMessage();
+			});
+        </script>
+    </body>
+</html>

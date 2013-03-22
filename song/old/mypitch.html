@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Pitch Detector</title>
+        <link href='http://fonts.googleapis.com/css?family=Alike' rel='stylesheet' type='text/css'>
+        <style>
+			body {
+				font: 14pt 'Alike', sans-serif;
+			}
+			#note {
+				font-size: 164px;
+			}
+			.droptarget {
+				background-color: #348781
+			}
+			div.confident {
+				color: black;
+			}
+			div.vague {
+				color: lightgrey;
+			}
+			#note {
+				display: inline-block;
+				width: 1em;
+				text-align: left;
+			}
+
+			#detector {
+				width: 300px;
+				height: 300px;
+				border: 4px solid gray;
+				border-radius: 8px;
+				text-align: center;
+			}
+			#output {
+				position: absolute;
+				width: 300px;
+				height: 300px;
+			}
+			#flat {
+				display: none;
+			}
+			#sharp {
+				display: none;
+			}
+			.flat #flat {
+				display: inline;
+			}
+			.sharp #sharp {
+				display: inline;
+			}
+        </style>
+
+    </head>
+    <body>
+
+        <!--<button onclick="updatePitch(0);">sample</button>-->
+
+        <div id="detector" class="vague">
+            <canvas id="output"></canvas>
+            <div class="pitch">
+                <span id="pitch">--</span>Hz
+            </div>
+            <div class="note">
+                <span id="note">--</span>
+            </div>
+            <div id="detune">
+                <span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span>
+            </div>
+        </div>
+        <div id="audioDiv"></div>
+        <script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-35593052-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+
+        </script>
+        <script src="js/vendor/jquery-1.9.1.min.js"></script>
+        <script>
+			//object that stores the pitches so far
+			var songStats = function() {
+				var pitches = [];
+				this.addPitch = function(index) {
+					if (!pitches[index]) {
+						pitches[index] = 1;
+					} else {
+						pitches[index] += 1;
+					}
+				}
+
+				this.getPitches = function() {
+					console.log(pitches);
+					return pitches;
+				}
+
+				this.getMean = function() {
+					totalnotes = 0;
+					numnotes = 0;
+					for (var i = 0; i < pitches.length; i++) {
+						if (pitches[i]) {
+							totalnotes += i * pitches[i];
+							numnotes += pitches[i];
+						}
+					}
+					return totalnotes / numnotes;
+				}
+			};
+
+			var buflen = 1024;
+			var buf = new Uint8Array(1024);
+			var MINVAL = 134;
+			var stats = new songStats();
+			var audioContext = new webkitAudioContext();
+			var analyser = audioContext.createAnalyser();
+			var audio = new Audio();
+			audio.src = 'http://a1409.phobos.apple.com/us/r1000/062/Music/v4/89/f9/f9/89f9f988-c052-5dba-b9f8-19e061df3982/mzaf_6144458359301632565.aac.m4a';
+			audio.controls = true;
+			audio.autoplay = true;
+			var sourceNode;
+			var isPlaying = false;
+			document.body.appendChild(audio);
+			window.addEventListener('load', function(e) {
+				sourceNode = audioContext.createMediaElementSource(audio);
+				isPlaying = true;
+				analyser.fftSize = 2048;
+				sourceNode.connect(analyser);
+				analyser.connect(audioContext.destination);
+				updatePitch(stats);
+			}, false);
+
+			// 128 == zero.  MINVAL is the "minimum detected signal" level.
+
+			function findNextPositiveZeroCrossing(start) {
+				var i = Math.ceil(start);
+				var last_zero = -1;
+				// advance until we're zero or negative
+				while (i < buflen && (buf[i] > 128 ))
+				i++;
+				if (i >= buflen)
+					return -1;
+
+				// advance until we're above MINVAL, keeping track of last zero.
+				while (i < buflen && (( t = buf[i]) < MINVAL )) {
+					if (t >= 128) {
+						if (last_zero == -1)
+							last_zero = i;
+					} else
+						last_zero = -1;
+					i++;
+				}
+
+				// we may have jumped over MINVAL in one sample.
+				if (last_zero == -1)
+					last_zero = i;
+
+				if (i == buflen)// We didn't find any more positive zero crossings
+					return -1;
+
+				// The first sample might be a zero.  If so, return it.
+				if (last_zero == 0)
+					return 0;
+
+				// Otherwise, the zero might be between two values, so we need to scale it.
+
+				var t = (128 - buf[last_zero - 1] ) / (buf[last_zero] - buf[last_zero - 1]);
+				return last_zero + t;
+			}
+
+			var updatePitch = function() {
+
+				var cycles = new Array;
+				analyser.getByteTimeDomainData(buf);
+
+				var i = 0;
+				// find the first point
+				var last_zero = findNextPositiveZeroCrossing(0);
+				var n = 0;
+				// keep finding points, adding cycle lengths to array
+				while (last_zero != -1) {
+					var next_zero = findNextPositiveZeroCrossing(last_zero + 1);
+					if (next_zero > -1)
+						cycles.push(next_zero - last_zero);
+					last_zero = next_zero;
+
+					n++;
+					if (n > 1000)
+						break;
+				}
+
+				// 1?: average the array
+				var num_cycles = cycles.length;
+				var sum = 0;
+				var pitch = 0;
+
+				for (var i = 0; i < num_cycles; i++) {
+					sum += cycles[i];
+				}
+
+				if (num_cycles) {
+					sum /= num_cycles;
+					pitch = audioContext.sampleRate / sum;
+				}
+
+				// confidence = num_cycles / num_possible_cycles = num_cycles / (audioContext.sampleRate/)
+				var confidence = ( num_cycles ? ((num_cycles / (pitch * buflen / audioContext.sampleRate)) * 100) : 0);
+
+				// possible other approach to confidence: sort the array, take the median; go through the array and compute the average deviation
+
+				var detectorElem = document.getElementById("detector");
+				var canvasElem = document.getElementById("output");
+				var pitchElem = document.getElementById("pitch");
+				var noteElem = document.getElementById("note");
+				var detuneElem = document.getElementById("detune");
+				var detuneAmount = document.getElementById("detune_amt");
+				if (num_cycles == 0) {
+					pitchElem.innerText = "--";
+					noteElem.innerText = "-";
+					detuneElem.className = "";
+					detuneAmount.innerText = "--";
+				} else {
+					if (true ) {
+						pitchElem.innerText = Math.floor(pitch);
+						var note = noteFromPitch(pitch);
+						var detune = centsOffFromPitch(pitch, note);
+						if (Math.abs(detune) < 8) {
+							console.log("Cycles: " + num_cycles + " - average length: " + sum + " - pitch: " + pitch + "Hz " + " - note: " + noteFromPitch(pitch) + " - confidence: " + confidence + "% ");
+							stats.addPitch(noteFromPitch(pitch));
+							noteElem.innerText = noteStrings[note % 12];
+
+							detuneElem.className = "";
+							detuneAmount.innerText = "--";
+						} else {
+							if (detune < 0)
+								detuneElem.className = "flat";
+							else
+								detuneElem.className = "sharp";
+							detuneAmount.innerText = Math.abs(detune);
+						}
+					}
+				}
+
+				rafID = window.webkitRequestAnimationFrame(updatePitch);
+			}
+
+			$(audio).bind('ended', function() {
+				sourceNode = null;
+				analyser = null;
+				isPlaying = false;
+				webkitCancelAnimationFrame(rafID);
+				stats.getPitches();
+				console.log((stats.getMean()));
+			});
+			var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+			function noteFromPitch(frequency) {
+				var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2) );
+				return Math.round(noteNum) + 69;
+			}
+
+			function frequencyFromNoteNumber(note) {
+				return 440 * Math.pow(2, (note - 69) / 12);
+			}
+
+			function centsOffFromPitch(frequency, note) {
+				return Math.floor(1200 * Math.log(frequency / frequencyFromNoteNumber(note)) / Math.log(2));
+			}
+
+        </script>
+    </body>
+</html>

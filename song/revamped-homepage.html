@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Vocalet</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Stalemate' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'>
+        <style>
+            
+			body {
+				background: rgb(255, 255, 255);;
+			}
+
+            .container{
+                max-width: 1000px;
+            }
+			#masthead {
+				height: auto;
+				min-height: 650px;
+				background: rgb(255, 84, 84);
+				/* Inner top shadow */
+				-moz-box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.2);
+				-webkit-box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.2);
+				box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.2);
+				/* Round corners */
+
+			}
+
+			#bottom {
+				height: auto;
+				min-height: 500px;
+				background: #fff;
+				background-image: url('shl.png');
+				background-repeat: repeat;
+				-moz-box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.1);
+				-webkit-box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.1);
+				box-shadow: inset 0 9px 5px rgba(0, 0, 0, 0.1);
+			}
+
+			#foot {
+				background: rgb(50, 50, 50);
+			}
+
+			p {
+				text-shadow: none;
+			}
+
+			#right {
+				padding-top: 20px;
+				padding-left: 20px;
+			}
+        </style>
+
+    </head>
+    <body>
+        <section class="container" id= "top">
+            <nav class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a href="/" class="brand"><img id="logo" src="logo-small.png">Vocalet</a>
+                        <ul class="nav pull-right">
+                            <li class="divider-vertical"></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                    <form>
+                                        <input type="text" class="span2" placeholder="Login">
+                                        <input type="text" class="span2" placeholder="Password">
+                                        <input type="submit" value="Login" class="btn btn-primary"/>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section class="section" id = "masthead">
+            <div class="container">
+                <div class ="row" >
+                    <div class="span5">
+                        <div id = "goal" style="min-width: 350px;" >
+                            <h2 style= "font-size: 80px; line-height: 1.5em; text-align: left; font-weight: 200">find songs</h2>
+                            <h2 style="font-size:120px; font-weight: 400; font-family: 'Bad Script'; color: #ffffff; text-align: left">YOU</h2>
+                            <h2 style= "font-size: 80px; line-height: 1.3em; text-align: left; font-weight: 200">sing best</h2>
+
+                        </div>
+                    </div>
+                    <div class = "span5" id = "right">
+                        <div >
+                            <i class="icon-music" style= "font-size: 600px;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class = "row">
+                    <h2>Sign Up Now</h2>
+                </div>
+            </div>
+        </section>
+        <section class="section" id = "bottom">
+            <div class="container">
+                <div class="row">
+                    <div class = "span7 offset5">
+                        <div id = "wrapper" class ="hidden-phone hidden-tablet">
+                            <div id="name">
+
+                            </div>
+                            <div id = "youtubeWrap" class= "pull-right" style="padding-top:75px;" >
+                                <iframe type="text/html" height="340" width= "600;" src="http://www.youtube.com/embed/LPoLC1uTH9w?autoplay=0&amp;controls=0&amp;showinfo=0&amp;autohide=0&amp;loop=0&amp;rel=0&amp;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;" allowfullscreen frameborder="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section footer-box" id = "foot" >
+            <div class = "footer container" style="padding-top: 5px;">
+                <p style= "color:#FFFFFF">
+                    Vocalet 2013 | Made by Pranav Rajpurkar and Vincent Su
+                </p>
+            </div>
+        </section>
+        <script src="./js/vendor/jquery-1.9.1.min.js"></script>
+        <script src="./js/vendor/bootstrap.min.js"></script>
+        </script>
+    </body>
+</html>
