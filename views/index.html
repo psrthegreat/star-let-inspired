@@ -225,15 +225,15 @@
 			});
            function getNearestSongs(){
             $.post( 'getSongs',
-                    {}, 
+                    {},
                     function(data){
                         console.log("data loaded" + data);
                     }).done(function() {
                     console.log("post successful");
                 }).fail(function(data) {
                     console.log("post not successful");
-                }); 
-           } 
+                });
+           }
 
         </script>
     </body>
