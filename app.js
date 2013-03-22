@@ -21,6 +21,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
+  app.use(express.session({ secret: 'mysecret',cookie: {maxAge: 3600 *1000}}));
 
   app.use(express.session());
   app.use(app.router);
@@ -34,15 +35,16 @@ app.configure('development', function(){
 
 app.get('/', routes.comingSoon);
 //app.get('/preview', routes.preview);
-app.get('/signup', user.signup);
-app.get('/login', user.login);
+app.get('/login', routes.login);
+app.get('/range', routes.rangeTest);
+app.get('/main', routes.main);
 
 //app.get('/users', user.list);
 //app.get('/users', user.echo);
 app.post('/verify', user.verifyLogin);
 app.post('/addUser', user.addUser);
 app.post('/addSong', user.addSongs);
-//app.post('/', user.verify);
+app.post('/setUserRange', user.setUserRange);
 app.post('/pitches', user.addPitches);
 app.post('/getSongs', user.getSongs);
 

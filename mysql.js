@@ -17,7 +17,7 @@ function printEntries(results){
 }
 
 function allDBEntries (callback, response){
-    client.query( 'SELECT * from example',
+    client.query( 'SELECT * from songs',
         function (err, results, fields){
             if (results.length > 0) callback(results, response);
     });
@@ -39,30 +39,31 @@ function DBAddPitch(req){
 function DBAddSong(req){
     var validator = require('./validator.js');
     var song = validator.encode(req.body.song);
-    var priority = req.body.priority;
-    client.query('INSERT INTO songs (song, priority) values (\'' + song + '\',' + priority + ')');
+    var artist_type = req.body.type;
+    var artist = validator.encode(req.body.artist);
+    client.query('INSERT INTO songs (song, artist, artist_type) values (\'' + song + '\',\'' + artist + '\',' + artist_type+')');
+    //check if id already in. sort by median
 }
-function DBNewUser(req, res){
+function DBNewUser(req, res, hashedpass){
     var validator = require('./validator.js');
-    //console.log(check(req.body.user).len(6, 64).isEmail());
-    //if (check(req.body.user).len(6, 64).isEmail()){
-        var user = validator.encode(req.body.username);
-        var password = req.body.password;
-        console.log(user + password);
-        //TODO: add a check if they're in the database;
-        client.query('INSERT INTO users (username, hashpass) values (\'' + user +'\',\'' + password + '\')');
+    var user = validator.encode(req.body.email);
+    //TODO: add a check if they're in the database;
+    client.query('INSERT INTO users (username, hashpass) values (\'' + user +'\',\'' + hashedpass + '\')');
     //}
 }
-function DBGetClosestSongs(req, success){
-    var validator = require('./validator.js');
-    var target = req.body.median;
-    var range = req.body.stddev;
-    //client.query('SELECT song FROM songs WHERE median = ' + target + ' AND range <= ' + range + '  LIMIT 10',success);
-    client.query('SELECT song FROM songs WHERE priority = ' + target + ' LIMIT 10',success);
+function DBGetClosestSongs(type, success){
+
+    console.log("type is " + type);
+    client.query('SELECT * FROM songs WHERE artist_type = ' + type + ' LIMIT 150',success);
+
 };
 
 function DBLookUpUser(username, success){
     client.query('SELECT * from users WHERE username = \'' + username + '\'', success);
+}
+
+function DBSetType(username, type){
+    client.query('UPDATE users SET type = ' + type + ' where username = \'' + username + '\'');
 }
 
 module.exports.DBNewUser = DBNewUser;
@@ -74,3 +75,4 @@ module.exports.DBQuery = DBQuery;
 module.exports.DBAddPitch = DBAddPitch;
 module.exports.DBAddSong = DBAddSong;
 module.exports.DBLookUpUser = DBLookUpUser;
+module.exports.DBSetType = DBSetType;
