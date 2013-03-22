@@ -6,10 +6,10 @@
         <title>Vocalet</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Stalemate' rel='stylesheet' type='text/css'>
@@ -95,9 +95,9 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                             <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                                <form>
-                                    <input type="text" class="span2" placeholder="Email">
-                                    <input type="password" class="span2" placeholder="Password">
+                                <form method="post" action="verifyLogin">
+                                    <input type="text" class="span2" name="email" placeholder="Email">
+                                    <input type="password" class="span2" name="password" placeholder="Password">
                                     <input type="submit" value="Login" class="btn btn-primary" style= "width: 100%"/>
                                 </form>
                             </div>
@@ -120,7 +120,7 @@
                     <div class = "span5" id= "rightColHeader" >
                         <h3 id = "emailPrompt" style= "font-size: 25px; text-align: left; font-weight: 300; color: #ddd">Enter Your Email and Sign up!</h3>
                         <h3 id = "passwordPrompt" class = "hidden" style= "font-size: 25px; text-align: left; font-weight: 300; color: #ddd">Now Choose a Password</h3>
-                        <form id=".form-horizontal signupForm">
+                        <form id=".form-horizontal signupForm" method="post" action="addUser">
 
                             <div class="controls email first">
                                 <div class="input">
@@ -184,8 +184,8 @@
                 </p>
             </div>
         </section>
-        <script src="./js/vendor/jquery-1.9.1.min.js"></script>
-        <script src="./js/vendor/bootstrap.min.js"></script>
+        <script src="./javascripts/vendor/jquery-1.9.1.min.js"></script>
+        <script src="./javascripts/vendor/bootstrap.min.js"></script>
         <script>
 			function hide(elem) {
 				$(elem).removeClass('visible');
@@ -206,7 +206,8 @@
 			});
 			
 			$('#signup').on("click", function(event){
-			   //add your post method here 
+			   e.preventDefault();
+			   $('#signup').submit();
 			});
         </script>
     </body>

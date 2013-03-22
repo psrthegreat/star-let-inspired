@@ -39,13 +39,12 @@ app.get('/login', routes.login);
 app.get('/range', routes.rangeTest);
 app.get('/main', routes.main);
 
-//app.get('/users', user.list);
-//app.get('/users', user.echo);
+app.get('/logout', user.logout);
 app.post('/verify', user.verifyLogin);
 app.post('/addUser', user.addUser);
 app.post('/addSong', user.addSongs);
 app.post('/setUserRange', user.setUserRange);
-app.post('/pitches', user.addPitches);
+//app.post('/pitches', user.addPitches);
 app.post('/getSongs', user.getSongs);
 
 http.createServer(app).listen(app.get('port'), function(){

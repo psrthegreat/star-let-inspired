@@ -137,6 +137,10 @@ exports.addUser = function(req,res){
     req.session.username = req.body.email;
     res.redirect('/range'); 
 }
+exports.logout = function(req,res){
+    req.session = null;
+    res.redirect('/login');
+}
 exports.verifyLogin = function(req,res){
     var database = require('../mysql.js');
     var username = req.body.email;

@@ -56,7 +56,7 @@ exports.login = function(req,res){
 exports.main = function(req,res){
     if (req.session.type != null){
     console.log("accessing main with type = " +req.session.type);
-    fs.readFile('./views/preview.html',
+    fs.readFile('./views/index.html',
     function(err, html){
         if (err) throw err;
         res.writeHead(200, {"Content-type": "text/html"});
