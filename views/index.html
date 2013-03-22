@@ -172,7 +172,7 @@
 				});
 			}
 
-			dumpPopularSongs(14, 15, "#songsList");
+			//dumpPopularSongs(14, 15, "#songsList");
 			function searchYoutube(query, limit, tab) {
 				$.ajax({
 					url : "https://gdata.youtube.com/feeds/api/videos?q=" + query + " " + tab + "&max-results=" + limit + "&format=5&v=2",
@@ -223,17 +223,35 @@
 				$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
 				return false;
 			});
+			
+			
+			function useData(data){
+			   var song = data.song;
+			   console.log(song);
+			}
+			
            function getNearestSongs(){
             $.post( 'getSongs',
+<<<<<<< HEAD
                     {},
+=======
+>>>>>>> Getting the songs
                     function(data){
                         console.log("data loaded" + data);
                     }).done(function() {
-                    console.log("post successful");
+                    //console.log("post successful");
+                    useData(data);
                 }).fail(function(data) {
                     console.log("post not successful");
+<<<<<<< HEAD
                 });
            }
+=======
+                }); 
+           } 
+           
+           getNearestSongs();
+>>>>>>> Getting the songs
 
         </script>
     </body>
