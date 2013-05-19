@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
         <link rel="stylesheet" href="/stylesheets/main.css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet">
-         <style>
+        <style>
 			body {
 				background: rgb(255, 255, 255);;
 			}
@@ -113,32 +113,30 @@
                     </div>
                 </div>
                 <div class ="row" style ="padding-top: 20px";>
-                    <div class = "span5" id= "rightColHeader" >
-                        <h3 id = "emailPrompt" style= "font-size: 25px; text-align: left; font-weight: 300; color: #ddd">Enter Your Email and Sign up!</h3>
-                        <h3 id = "passwordPrompt" class = "hidden" style= "font-size: 25px; text-align: left; font-weight: 300; color: #ddd">Now Choose a Password</h3>
-                        <form id="signupForm" method="post" action="addUser">
+                    <form id="signupForm" method="post" action="addUser">
+                        <h3 id = "emailPrompt" style= "font-size: 20px; text-align: left; font-weight: 300; color: #ddd">Sign Up. It only takes <strong>10</strong> seconds!</h3>
 
-                            <div class="controls email first">
-                                <div class="BigInput input" style = "width: 100%">
-                                    <input type="email" id="signupEmail" name="email" class = "input-large span4" required= "required" value="" data-err-req-message="Please enter Email." />
-                                </div>
-                                <button class="btn btn-primary span4" id="nameEnter" type="button" style= "margin-left: 0px; margin-top: 0px;">
-                                    <h3> Become a Rockstar</h3>
-                                </button>
+                        <div class="controls email first">
+
+                            <div class="BigInput input" style = "width: 100%">
+                                <input type="email" id="signupEmail" placeholder="Email" name="email" class = "input-large span4" required= "required" value="" data-err-req-message="Please enter Email." />
                             </div>
-                            <div class = 'later hidden'>
-                                <div class="BigInput input" style = "width: 100%">
-                                    <input type="password" id="signupPassword" name="password" class = "input-large span4" required="required" data-err-req-message="Please enter Password."/>
-                                </div>
-                                <button class="btn btn-primary span4" id="signup" type="button" style= "margin-left: 0px; margin-top: 0px;">
-                                    <h3>Sign Up</h3>
-                                </button>
-                                <div class="controls"></div>
-                        </form>
-                    </div>
-                </div>
 
-            </div>
+                        </div>
+
+                        <div class = ''>
+                            <div class="BigInput input" style = "width: 100%">
+                                <input type="password" id="signupPassword" placeholder="Password" name="password" class = "input-large span4" required="required" data-err-req-message="Please enter Password."/>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary span4" id="signup" type="submit" style= "margin-left: 0px; margin-top: 0px;">
+                                <h3>Become a Rockstar</h3>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
         </section>
         <section class="section" id = "bottom" style = "padding-top: 60px; padding-bottom: 60px;">
             <div class="container">
@@ -185,7 +183,7 @@
                         <img src= "images/2.jpeg" width = "100%">
                     </div>
                 </div>
-                
+
             </div>
 
         </section>
