@@ -39,7 +39,6 @@ app.get('/login', routes.login);
 app.get('/range', routes.rangeTest);
 app.get('/main', routes.main);
 app.get('/logout', routes.logout);
-
 app.post('/verify', user.verifyLogin);
 app.post('/addUser', user.addUser);
 app.post('/addSong', user.addSongs);

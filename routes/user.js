@@ -130,7 +130,7 @@ exports.addUser = function(req,res){
     database.DBConnect();
     function createUser(err, results, field){
         console.log(results);
-        if (results.length == 0){
+        if (results == null){
             var validator = require('../validator.js');
             var password = req.body.password;
             var salt = generateSalt(SaltLength);
