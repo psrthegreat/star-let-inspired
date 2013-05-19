@@ -12,7 +12,6 @@ function swap(results, i1, i2){
     results[i2] = temp;
 }
 //getSongs is the main call to getting closest songs
-//needs work on the range implementation
 exports.getSongs = function(req,res){
     var database = require('../mysql.js');
     var type = req.session.type;
@@ -103,43 +102,51 @@ exports.setUserRange = function(req,res){
     high = convertNoteToNumber(high);
     if (gender == "Male"){
         if (high >= convertNoteToNumber("E5")){
-            type = 1;
+            type = 4;
         } else {
-            type = 0;
+            type = 3;
         }
     } else if (gender == "Female"){
         if (high >= convertNoteToNumber("C6")){
-            type = 4;
+            type = 0;
         } else if (low <= convertNoteToNumber("F3")){
             type = 2;
         } else {
-            type = 3;
+            type = 1;
         }
     }
     database.DBConnect();
     database.DBSetType(req.session.username,type);
     database.DBClose();
     req.session.type = type;
-    res.redirect('/preview.html');
+    res.redirect('/main');
     console.log('type was ' + type);
 }
 
 //addUser inserts their email and a hashed password. posted to by signup page
 exports.addUser = function(req,res){
     var database = require('../mysql.js');
-    var password = req.body.password;
-    var salt = generateSalt(SaltLength);
-    var hashpass = salt + md5(password + salt);
-
+    var username = req.body.email;
     database.DBConnect();
-    database.DBNewUser(req, res, hashpass);
-    database.DBClose();
-    req.session.username = req.body.email;
-    res.redirect('/range'); 
-}
-exports.logout = function(req,res){
-    req.session = null;
-    res.redirect('/login');
+    function createUser(err, results, field){
+        console.log(results);
+        if (results.length == 0){
+            var validator = require('../validator.js');
+            var password = req.body.password;
+            var salt = generateSalt(SaltLength);
+            var hashpass = salt + md5(password + salt);
+            database.DBNewUser(username, hashpass);
+            req.session.username = req.body.email;
+            req.session.cookie.expires = false;
+            req.session.type = null;
+            
+            res.redirect('/range'); 
+        } else {
+            res.redirect('/login');
+        }
+        database.DBClose();
+    }
+    database.DBLookUpUser(username, createUser);
 }
 exports.verifyLogin = function(req,res){
     var database = require('../mysql.js');

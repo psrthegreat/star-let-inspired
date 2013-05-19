@@ -53,6 +53,12 @@ exports.login = function(req,res){
         });
     }
 }
+exports.logout = function(req,res){
+    console.log("clearing...?");
+    req.session.username = null;
+    req.session.type = null;
+    res.redirect('/');
+}
 exports.main = function(req,res){
     if (req.session.type != null){
     console.log("accessing main with type = " +req.session.type);

@@ -44,12 +44,8 @@ function DBAddSong(req){
     client.query('INSERT INTO songs (song, artist, artist_type) values (\'' + song + '\',\'' + artist + '\',' + artist_type+')');
     //check if id already in. sort by median
 }
-function DBNewUser(req, res, hashedpass){
-    var validator = require('./validator.js');
-    var user = validator.encode(req.body.email);
-    //TODO: add a check if they're in the database;
+function DBNewUser(user, hashedpass){
     client.query('INSERT INTO users (username, hashpass) values (\'' + user +'\',\'' + hashedpass + '\')');
-    //}
 }
 function DBGetClosestSongs(type, success){
 
