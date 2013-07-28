@@ -4,6 +4,29 @@ body {
 	background: rgb(254, 254, 254);
 }
 
+#searchsong {
+	height: 45px;
+	padding: 0px 10px;
+	color: #444;
+	font-size: 18px;
+	font-weight: 200;
+}
+#searchbutton {
+	height: 47px;
+	-webkit-border-radius: 0px 30px 30px 0px;
+	border-radius: 0px 30px 30px 0px;
+	text-align: center;
+	text-shadow: none;
+	border-color: none;
+	padding: 0 20px;
+	font-size: 16px;
+	font-weight: 200;
+}
+
+#foot {
+	background: rgb(50, 50, 50);
+}
+
 #feature-screenshot {
 	border-radius: 6px 0px 0px 6px;
 	-moz-border-radius: 6px 0px 0px 6px;
@@ -13,7 +36,7 @@ body {
 
 p {
 	font: 14px/23px 'Open Sans', sans-serif;
-	text-shadow: #ffffff 0 1px 0;
+	text-shadow: none;
 }
 
 a:link, a:visited {
@@ -69,7 +92,8 @@ h4 {
 }
 
 .navbar {
-	margin: 0 0 15px;
+	margin: 0 0 5px;
+	padding-bottom: 3px;
 }
 
 .navbar-inner {
@@ -269,7 +293,7 @@ h4 {
 	}
 }
 
-.btn {
+.btny {
 	padding: 12px 16px;
 	text-shadow: none;
 	background-color: #ddd;
@@ -314,8 +338,14 @@ h4 {
 	margin-bottom: 0px;
 }
 
+.nav-tabs > li > a {
+	line-height: 2.4em;
+}
+
 #content-section {
 	padding-top: 30px;
+	background-image: url('../images/shl.png');
+	background-repeat: repeat;
 }
 
 .contents {
@@ -325,18 +355,41 @@ h4 {
 
 .well {
 	background-color: #FFFFFF;
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: -2 px;
+	border: 1px solid #eee;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+	-moz-box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+	box-shadow: inset 0 0px 0px rgba(0,0,0,0.05);
+}
+#songsList {
+	background-color: rgba(255,255,255,0.7);
 }
 
 a:link, a:visited {
 	text-decoration: none;
 }
 
+#youtubeOptions {
+	margin-top: 20px;
+}
+
+.youNav {
+	font-size: 15px;
+	font-weight: 200;
+	padding: 1px;
+}
 .youtubeSelection {
 	margin-left: 0px;
-	margin-bottom: 5px;
-	margin-top: 5px;
-	padding: 10px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding: 15px;
 	cursor: pointer;
+	background-color: rgba(255,255,255,0.4);
 }
 
 .youtubeSelection:hover {
@@ -388,10 +441,10 @@ a:link, a:visited {
 	border-right: 1px solid #cccccc;
 }
 
-.btn-primary{
+.btn-primary {
 	margin-top: 15px;
 }
 
-.remarks{
+.remarks {
 	text-align: left;
 }
