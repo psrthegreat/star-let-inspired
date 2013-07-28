@@ -60,7 +60,6 @@ exports.logout = function(req,res){
     res.redirect('/');
 }
 exports.main = function(req,res){
-    if (req.session.type != null){
     console.log("accessing main with type = " +req.session.type);
     fs.readFile('./views/index.html',
     function(err, html){
@@ -69,8 +68,5 @@ exports.main = function(req,res){
         res.write(html);
         res.end();
     });
-    } else {
-        res.redirect('/login');
-    }
 }
 
