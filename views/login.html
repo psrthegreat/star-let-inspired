@@ -80,6 +80,8 @@
 				padding-top: 30px;
 				padding-bottom: 30px;
 			}
+
+
         </style>
     </head>
     <body>
@@ -87,18 +89,6 @@
             <nav class="navbar">
                 <div class="navbar-inner">
                     <a href="/" class="brand"><img id="logo" src="images/logo-small.png">Vocalet</a>
-                    <ul class="nav pull-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                                <form method="post" action="verify">
-                                    <input type="text" class="span3" name="email" placeholder="Email">
-                                    <input type="password" class="span3" name="password" placeholder="Password">
-                                    <input type="submit" value="Login" class="btn btn-primary" style= "width: 100%"/>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </nav>
         </section>
@@ -113,28 +103,12 @@
                     </div>
                 </div>
                 <div class ="row" style ="padding-top: 20px";>
-                    <form id="signupForm" method="post" action="addUser">
-                        <h3 id = "emailPrompt" style= "font-size: 20px; text-align: left; font-weight: 300; color: #ddd">Sign Up. It only takes <strong>10</strong> seconds!</h3>
+                     <div class = "span5">
 
-                        <div class="controls email first">
-
-                            <div class="BigInput input" style = "width: 100%">
-                                <input type="email" id="signupEmail" placeholder="Email" name="email" class = "input-large span4" required= "required" value="" data-err-req-message="Please enter Email." />
-                            </div>
-
+                            <a href="index.html"><button class="btn btn-primary span4" id="signup" type="submit" style= "margin-left: 0px; margin-top: 0px;">
+                                <h3>Start Your Journey Here</h3>
+                            </button></a>
                         </div>
-
-                        <div class = ''>
-                            <div class="BigInput input" style = "width: 100%">
-                                <input type="password" id="signupPassword" placeholder="Password" name="password" class = "input-large span4" required="required" data-err-req-message="Please enter Password."/>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary span4" id="signup" type="submit" style= "margin-left: 0px; margin-top: 0px;">
-                                <h3>Become a Rockstar</h3>
-                            </button>
-                        </div>
-                    </form>
 
                 </div>
         </section>
