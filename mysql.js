@@ -50,7 +50,7 @@ function DBNewUser(user, hashedpass){
 function DBGetClosestSongs(type, success){
 
     console.log("type is " + type);
-    client.query('SELECT * FROM songs WHERE artist_type = ' + type + ' LIMIT 150',success);
+    client.query('SELECT * FROM songs WHERE LIMIT 150',success);
 
 };
 

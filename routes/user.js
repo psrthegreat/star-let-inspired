@@ -11,14 +11,35 @@ function swap(results, i1, i2){
     results[i1] = results[i2];
     results[i2] = temp;
 }
+
+exports.songSearch = function(req,res){
+    $.ajax({
+        url : "https://gdata.youtube.com/feeds/api/videos?q=" + query + " " + tab + "&max-results=" + limit + "&format=5&v=2",
+        dataType : 'xml',
+    }).done(function(xml) {
+        $('#' + tab).html("");
+        $(xml).find('entry').each(function() {
+            console.log(this);
+            var title = $(this).children('title').text();
+            var artist = $(this).children('author').children('name').text();
+            var imageSource = $(this).find("media\\:thumbnail, thumbnail").first().attr('url');
+            var link = $(this).find("id").text();
+            var videoID = link.substr(link.search('video:') + 6);
+            console.log(videoID);
+            if (artist.search(/vevo/i) == -1) {
+                $('#' + tab).append('<div class = "media well youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src=' + imageSource + '><div class = "media-body"><strong class= "media">' + title + '</strong><p>' + artist + '</p></div></div>');
+            }
+        });
+    }).fail(function(data) {
+        $('#' + tab).html("Could not get your videos. Please check your internet connection.");
+    });
+}
 //getSongs is the main call to getting closest songs
 exports.getSongs = function(req,res){
     var database = require('../mysql.js');
-    var type = req.session.type;
     database.DBConnect();
     function sendResults(err,results,field){
         var validator = require('../validator.js');
-        req.session.type = type;
         if (results){
             var songs = [];
             console.log(results.length);
@@ -80,7 +101,7 @@ function md5(string){
 function generateSalt(len) {
   var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ',
       setLen = set.length,
-      salt = ''; 
+      salt = '';
   for (var i = 0; i < len; i++) {
     var p = Math.floor(Math.random() * setLen);
     salt += set[p];
@@ -139,8 +160,8 @@ exports.addUser = function(req,res){
             req.session.username = req.body.email;
             req.session.cookie.expires = false;
             req.session.type = null;
-            
-            res.redirect('/range'); 
+
+            res.redirect('/range');
         } else {
             res.redirect('/login');
         }
@@ -170,7 +191,7 @@ exports.verifyLogin = function(req,res){
                 req.session.type = results[0].type;
                 req.session.cookie.expires = false;
                 if (results[0].type == null){
-                    res.redirect('/range'); 
+                    res.redirect('/range');
                 } else {
                 res.redirect('/main');
                 }
