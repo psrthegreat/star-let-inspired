@@ -7,7 +7,6 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , mysql = require('./mysql.js')
   , path = require('path');
 
 var app = express();
