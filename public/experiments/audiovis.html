@@ -198,7 +198,7 @@
         <script>
 			window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')
         </script>
-        <script type="text/javascript" src="js/dat.gui.min.js"></script>
+        <script type="text/javascript" src="/javascripts/dat.gui.min.js"></script>
         <script>
 			var canvas = document.getElementById('fft');
 			var ctx = canvas.getContext('2d');
@@ -284,8 +284,7 @@
 
 					// Create an AudioNode from the stream.
 					var source = context.createMediaStreamSource(stream);
-					console.log(analyser.minDecibels);
-					analyser.minDecibels = -70;
+					analyser.minDecibels = -100;
 					analyser.smoothingTimeConstant = 0.89;
 					source.connect(analyser);
 					//analyser.connect(context.destination);

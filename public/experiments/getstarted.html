@@ -331,11 +331,9 @@
 
 				}
 
-
 				$(".recommendations").on("click", ".recommendationSelection", function(event) {
 					hide('#midRight');
 					show('#finalRight');
-					//show('#notification');
 					$(".recommendationSelection").removeClass('active');
 					searchYoutubeMultiple($(this).text());
 					if (!$(this).hasClass('active')) {
