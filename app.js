@@ -23,13 +23,10 @@ app.configure('development', function(){
 });
 
 app.get('/', function (req, res){
-	res.sendfile("./public/login.html");
-});
-app.get('/range', function (req, res){
-	res.sendfile("./public/rangefinder.html");
+	res.render('login');
 });
 app.get('/main', function (req, res){
-	res.sendfile('./public/main.html');
+	res.render('main');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
