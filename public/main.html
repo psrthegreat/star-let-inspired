@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Vocalet</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" "http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" >
+        <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" href="stylesheets/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <section class="container" id= "top">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <a href="/" class="brand" style="font-weight: 200; font-size: 35px;"><img id="logo" src="images/logo-small.png">Vocalet</a>
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+        </section>
+        <section class="section" id = "content-section">
+            <div class="container">
+                <div class="row">
+                    <div id = "left-col" class = "span5">
+                        <div class = "contents" >
+                            <div class="row">
+                                <div id = "recSongDisplay" class="row">
+                                    <form id = "searchform" class="form-search">
+                                        <div class="input-append">
+                                            <input type="text" id = "searchsong" class="input-large span4 search-query">
+                                            <button type="submit" id = "searchbutton" class="btn">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <ul class="nav nav-tabs nav-stacked" id= "songsList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id = "right-col" class = "span7 ">
+                        <div class = "contents">
+                            <div id = "finalRight" class="row">
+                                <div id = "prompt">
+                                    <h3 style= "font-size: 30px; font-weight: 100;">Please choose a song:</h3>
+                                </div>
+                                <div id = "youtubeFrame" class = ""></div>
+                                <div id = "youtubeOptions" class = "hidden">
+                                    <ul class="nav nav-tabs">
+                                        <li class ="active">
+                                            <a href="#lyrics" data-toggle="tab">
+                                            <p class = "youNav">
+                                                Lyrics
+                                            </p></a>
+                                        </li>
+                                        <li>
+                                            <a href="#karaoke" data-toggle="tab">
+                                            <p class = "youNav">
+                                                Karaoke
+                                            </p></a>
+                                        </li>
+                                        <li>
+                                            <a href="#covers" data-toggle="tab">
+                                            <p class = "youNav">
+                                                Covers
+                                            </p></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content youtube">
+                                        <div class="tab-pane active" id="lyrics"></div>
+                                        <div class="tab-pane" id="karaoke"></div>
+                                        <div class="tab-pane" id="covers"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section footer-box" id = "foot" >
+            <div class = "footer container" style="padding-top: 5px;">
+                <p style= "color:#FFFFFF; font-weight: 100; font-size: 13px;">
+                    Vocalet 2013 | Made by Pranav Rajpurkar and Vincent Su
+                </p>
+            </div>
+        </section>
+        <script src="./javascripts/vendor/jquery-1.9.1.min.js"></script>
+        <script src="./javascripts/vendor/bootstrap.min.js"></script>
+        <script>
+			function hide(elem) {
+				$(elem).removeClass('visible');
+				$(elem).addClass('hidden');
+			}
+
+			function show(elem) {
+				$(elem).removeClass('hidden');
+				$(elem).addClass('visible');
+			}
+
+			function dumpPopularSongs(genre, limit, tab) {
+				$.ajax({
+					url : 'https://itunes.apple.com/us/rss/topsongs/limit=' + limit + '/genre=' + genre + '/xml',
+					dataType : 'xml'
+				}).done(function(xml) {
+					$(xml).find('entry').each(function() {
+						var songTitle = $(this).find('title').text();
+						$(tab).append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + songTitle + '</a></li>');
+					});
+				}).fail(function(data) {
+					$(tab).html("Could not get your star songlist. Please check your internet connection.");
+				});
+			}
+
+			//dumpPopularSongs(14, 15, "#songsList");
+			function searchYoutube(query, limit, tab) {
+				$.ajax({
+					url : "https://gdata.youtube.com/feeds/api/videos?q=" + query + " " + tab + "&max-results=" + limit + "&format=5&v=2",
+					dataType : 'xml',
+				}).done(function(xml) {
+					$('#' + tab).html("");
+					$(xml).find('entry').each(function() {
+						var title = $(this).children('title').text();
+						var artist = $(this).children('author').children('name').text();
+						var imageSource = $(this).find("media\\:thumbnail, thumbnail").first().attr('url');
+						var link = $(this).find("id").text();
+						var videoID = link.substr(link.search('video:') + 6);
+						if (artist.search(/vevo/i) == -1) {
+							$('#' + tab).append('<div class = "media well youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src=' + imageSource + '><div class = "media-body" style = "font-size: 16px;font-weight: 100;"><strong class= "media" style= "font-weight: 200">' + title + '</strong><p style = "font-weight: 100; font-size: 10px;">' + artist + '</p></div></div>');
+						}
+					});
+				}).fail(function(data) {
+					$('#' + tab).html("Could not get your videos. Please check your internet connection.");
+				});
+			}
+
+			function searchYoutubeMultiple(song) {
+				searchYoutube(song, 5, "lyrics");
+				searchYoutube(song, 5, "karaoke");
+				searchYoutube(song, 6, "covers");
+			}
+
+            function startYoutube(query){
+                searchYoutubeMultiple(query);
+                $('#youtubeFrame').html("<h3 style= 'font-size: 30px; font-weight: 100;'>Now choose a track from below:</h3>");
+                show('#youtubeOptions');
+                hide('#prompt')
+            }
+
+			$("#songsList").on("click", ".recommendationSelection", function(event) {
+				$(".recommendationSelection").removeClass('active');
+				if (!$(this).hasClass('active')) {
+					$(this).addClass('active');
+				}
+				 startYoutube($(this).text());
+				return false;
+			});
+
+			$(".youtube").on("click", ".youtubeSelection", function(event) {
+				if (!$('#youframe').length) {
+					show('#youtubeFrame');
+					//<h3 style= "font-size: 40px; font-weight: 100;text-shadow:0 -1px 1px rgba(0,0,0,0.1);">Vocalet</h3>
+					$('#youtubeFrame').html('<iframe id="youframe" type="text/html" height="300" width="100%" src="" allowfullscreen frameborder="0"></iframe>');
+				}
+				var link = $(this).attr('id');
+				$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
+				return false;
+			});
+
+			function useData(data) {
+				for (var i = 0; i < data.length; i++) {
+					var result = data[i];
+					var song = result.song;
+					var artist = result.artist;
+					var total = song + " - " + artist;
+					$('#songsList').append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + total + '</a></li>');
+				}
+			}
+
+			function useData2(data) {
+				for (var i = 0; i < data.length; i++) {
+					var result = data[i];
+					$('#songsList').append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + result + '</a></li>');
+				}
+			}
+
+			$('#searchform').submit(function() {
+			     var query = $('#searchform :input').val();
+			    console.log(query);
+			    startYoutube(query);
+			  return false;
+});
+
+			function makeRequest() {
+				$.ajax({
+					url : "https://itunes.apple.com/us/rss/topsongs/limit=8/xml",
+					dataType : 'xml',
+				}).done(function(xml) {
+					var arr = []
+					$(xml).find('entry').each(function() {
+						console.log(this);
+						var element = {};
+						element.id = $(this).find('id').attr('im:id');
+						element.title = $(this).find('title').text();
+						arr.push(element.title);
+					});
+					console.log(arr)
+					useData2(arr)
+					return arr;
+				});
+			}
+
+			var art = makeRequest()
+			console.log(art);
+
+        </script>
+    </body>
+</html>

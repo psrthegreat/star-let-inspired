@@ -1,13 +1,6 @@
-
-/**
- * Module dependencies.
- */
-
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+var express = require('express'),
+	http = require('http'),
+	path = require('path');
 
 var app = express();
 
@@ -25,24 +18,20 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-//app.register('.html',require('jade'));
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.login);
-//app.get('/preview', routes.preview);
-app.get('/login', routes.login);
-app.get('/range', routes.rangeTest);
-app.get('/main', routes.main);
-app.get('/logout', routes.logout);
-app.post('/verify', user.verifyLogin);
-app.post('/addUser', user.addUser);
-app.post('/addSong', user.addSongs);
-app.post('/setUserRange', user.setUserRange);
-app.post('/getSongs', user.getSongs);
+app.get('/', function (req, res){
+	res.sendfile("./public/login.html");
+});
+app.get('/range', function (req, res){
+	res.sendfile("./public/rangefinder.html");
+});
+app.get('/main', function (req, res){
+	res.sendfile('./public/main.html');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
-    //app.use(express.basicAuth(authorize));
   console.log("Express server listening on port " + app.get('port'));
 });
