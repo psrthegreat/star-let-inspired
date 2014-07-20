@@ -15,13 +15,11 @@ app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  //app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session({ secret: 'mysecret',cookie: {maxAge: 3600 *1000}}));
-
   app.use(express.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -42,7 +40,6 @@ app.post('/verify', user.verifyLogin);
 app.post('/addUser', user.addUser);
 app.post('/addSong', user.addSongs);
 app.post('/setUserRange', user.setUserRange);
-//app.post('/pitches', user.addPitches);
 app.post('/getSongs', user.getSongs);
 
 http.createServer(app).listen(app.get('port'), function(){
