@@ -1,4 +1,4 @@
-//var socket = io.connect();
+var socket = io.connect();
 var tag = document.createElement('script');
 
 tag.src = "//www.youtube.com/iframe_api";
@@ -38,7 +38,7 @@ function change(){
 		var next = cur.substring(cur.indexOf('\n') + 1);
 		$('#imp').val(next);
 
-		//socket.emit('curbroad', {'cur': title});
+		socket.emit('curbroad', {'cur': title});
 		$('#current').text(title);
 	});
 }
