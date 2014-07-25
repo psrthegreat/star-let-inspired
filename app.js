@@ -4,6 +4,8 @@ var express = require('express'),
 
 var app = express();
 
+
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -27,6 +29,10 @@ app.get('/', function (req, res){
 });
 app.get('/main', function (req, res){
 	res.render('main');
+});
+
+app.get('/groove', function(req, res){
+  res.render('groove');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
