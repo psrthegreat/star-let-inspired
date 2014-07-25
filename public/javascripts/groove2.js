@@ -1,4 +1,10 @@
 //var socket = io.connect();
+var tag = document.createElement('script');
+
+tag.src = "//www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 
 var player;
 
@@ -22,6 +28,8 @@ function onYouTubePlayerAPIReady() {
 	});
 }
 
+var ready = false;
+
 function change(){
 	var next = $('#imp').val().split('\n')[0];
 	searchYoutube(next, 1, "", function(title, id){
@@ -36,6 +44,7 @@ function change(){
 }
 
 function onReady(event){
+	ready = true;
 	change();
 }
 
@@ -47,7 +56,7 @@ function onPlayerStateChange(event) {
 }
 
 $('#btny').click(function(){
-	change();
+	if(ready = true) change();
 });
 
 
