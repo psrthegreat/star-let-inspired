@@ -1,4 +1,4 @@
-var socket = io.connect('http://vocalet.com:5000/');
+var socket = io.connect('vocalet.com/');
 
 var player;
 
