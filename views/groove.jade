@@ -1,75 +1,30 @@
-!!! 5
-html
-	head
-		meta(charset='UTF-8')
-		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-		title Vocalet
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
-		link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
-		link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
-		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600', rel='stylesheet')
-		link(rel='stylesheet', href='stylesheets/common.css')
-		link(rel='stylesheet', href='stylesheets/groove.css')
-		section#top.container
-			.navbar
-				.navbar-inner
-					a.brand(href='/')
-						img#logo(src='images/logo.png')
-						| Vocalet
-		section.main
-			.container
-				.row#main-row
-					#right.col-md-6.col-md-push-6
-						h2 Playing Right Now...
-						#player
-						h2 Up Next...
-					#left.col-md-6.col-md-pull-6
-						form#hi
-							textarea#imp
-								|Hey
-		#footer-box.navbar-static-bottom
-				| Vocalet 2013 | Made by 
-				a#shmp(href='http://www.stanford.edu/~pranavsr')
-					| Pranav Rajpurkar 
-				| and Vincent Su
-		script(src='javascripts/jquery-1.9.1.min.js')
-		script(src='javascripts/bootstrap.min.js')
-		script(src='javascripts/groove.js')
-		script(src="http://mobwrite3.appspot.com/static/compressed_form.js")
-		script.
-			mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
-			$(document).ready(function(){
-				mobwrite.idPrefix = 'woah';
-				mobwrite.nullifyAll = false;
-				mobwrite.timeoutInterval = 3000000;
-				mobwrite.share('imp');
-			});
-		script(src="http://www.youtube.com/player_api")
-		script.
-			var player;
-			function onYouTubePlayerAPIReady() {
-				player = new YT.Player('player', {
-					height: '300',
-					width: '100%',
-					videoId: '0Bmhjf0rKe8',
-					playerVars: {'autohide': 1,
-					'controls': 2,
-					'enablejsapi': 1,
-					'fs': 0,
-					'iv_load_policy': 3,
-					'modestbranding': 1,
-					'rel': 0,
-					'showinfo': 0,
-					'autoplay': 0},
-					'events': {
-						'onStateChange': onPlayerStateChange
-					}
-				});
-			}
-			// when video ends
-			function onPlayerStateChange(event) {        
-				if(event.data === 0) {          
-					alert('done');
-				}
-			}
+extends common
+block extralinks
+	link(rel='stylesheet', href='stylesheets/groove.css')
+
+block content
+	section.main
+		.container
+			.row#main-row
+				#right.col-md-6.col-md-push-6
+					h2 Playing Right Now...
+					#player
+					h2 Up Next...
+				#left.col-md-6.col-md-pull-6
+					form#hi
+						textarea#imp
+							|Hey
+
+
+block extrascripts
+	script(src="http://mobwrite3.appspot.com/static/compressed_form.js")
+	script.
+		mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
+		$(document).ready(function(){
+			mobwrite.idPrefix = 'woah';
+			mobwrite.nullifyAll = false;
+			mobwrite.timeoutInterval = 3000000;
+			mobwrite.share('imp');
+		});
+	script(src="http://www.youtube.com/player_api")
+	script(src='javascripts/groove.js')
