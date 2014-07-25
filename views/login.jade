@@ -1,72 +1,32 @@
-!!! 5
-html
-	head
-		meta(charset='UTF-8')
-		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-		title Vocalet
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
-		link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
-		link(rel='stylesheet', href='stylesheets/bootstrap-responsive.min.css')
-		link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
-		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600', rel='stylesheet')
-		link(rel='stylesheet', href='stylesheets/main.css')
-		link(rel='stylesheet', href='stylesheets/login.css')
-	body
-		section#top.container
-			nav.navbar
-				.navbar-inner
-					a.brand(href='/')
-						img#logo(alt='', src='images/logo.png')
-						| Vocalet
-		section#masthead.section
-			.container
-				.row(style='padding-top: 100px;')
-					.span5
-						#goal
-							h2(style='font-size: 80px; text-align: left; font-weight: 100; color: #fff;') Vocalet
-							h2(style='font-size: 30px; text-align: left; font-weight: 100; color: #fff;')
-								| Find Songs
-								strong(style='color: #fff; font-weight: 400;')  YOU 
-								| Sing Best
-				.row(style='padding-top: 20px;')
-					.span5
-						form(action='/main')
-							button#signup.btny.btn-primary.span4(type='submit', style='margin-left: 0px; margin-top: 0px;')
-								h3 Start Your Journey Here
-		section#bottom.section(style='padding-top: 60px; padding-bottom: 60px;')
-			.container
-				.row.layer
-					.span5
-						h2(style='text-align: right;') Singing is awesome
-						p(style='text-align: right; font-size: 18px; font-weight: 100px;')
-							| That's why we wanted to share Vocalet.
-							br
-							| We all love to sing, and Vocalet serves as a platform to help you practice.
-					.span5
+extends layout
+block extralinks
+	link(rel='stylesheet', href='stylesheets/login.css')
+
+block content
+	section#masthead.section
+		.container
+			.row(style='padding-top: 100px;')
+				.span5
+					#goal
+						h2(style='font-size: 80px; text-align: left; font-weight: 100; color: #fff;') Vocalet
+						h2(style='font-size: 30px; text-align: left; font-weight: 100; color: #fff;')
+							| Explore new songs to sing along to
+			.row(style='padding-top: 20px;')
+				.span5
+					form(action='/main')
+						button#signup#btny.col-md-5.btn-primary(type='submit')
+							h1 Start
+	section#bottom.section
+		.container
+			.row.layer
+				.col-md-5
 						iframe#youframe(type='text/html', height='300', width='100%', src='http://www.youtube.com/embed/LPoLC1uTH9w?autoplay=0&controls=0&showinfo=0&autohide=1&loop=0&rel=0&iv_load_policy=3;wmode=transparent&enablejsapi=1&modestbranding=0&html5=1&amp', frameborder='0')
-				.row.layer
-					.span5
-						h2(style='text-align: right;') Singing is personal
+				.col-md-7
+					.row
+						h2(style='text-align: right;') Singing is Awesome | Personal | Powerful
 						p(style='text-align: right; font-size: 18px; font-weight: 100px;')
-							| Singing expresses who you are.
-							br
-							| Vocalet helps find songs that are fit for you.
-					.span5
-						img(alt='', src='images/mic.jpeg', style='width: 500 height:100%;')
-				.row.layer
-					.span5
-						h2(style='text-align: right;') Singing is powerful
-						p(style='text-align: right; font-size: 18px; font-weight: 100px;')
-							| Capture your moment.
-							br
 							| Never miss a beat with Vocalet.
-					.span5
-						img(src='images/star.jpeg', alt='', style='width: 100%;')
-		section#foot.section.footer-box
-			.footer.container(style='padding-top: 10px;')
-				p(style='color: #FFFFFF;')
-					| Vocalet 2013 | Made by Pranav Rajpurkar and Vincent Su
-		script(src='./javascripts/jquery-1.9.1.min.js')
-		script(src='./javascripts/bootstrap.min.js')
+				
+
+	block extrascripts
 		script(src='./javascripts/login.js')

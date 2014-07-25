@@ -1,67 +1,45 @@
-!!! 5
-html
-	head
-		meta(charset='UTF-8')
-		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-		title Vocalet
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(rel='stylesheet')
-		link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
-		link(rel='stylesheet', href='stylesheets/bootstrap-responsive.min.css')
-		link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
-		link(rel='stylesheet', href='stylesheets/main.css')
-	body
-		section#top.container
-			.navbar
-				.navbar-inner
-					a.brand(href='/', style='font-weight: 200; font-size: 35px;')
-						img#logo(src='images/logo.png')
-						| Vocalet
-					button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-		section#content-section.section
-			.container
-				.row
-					#left-col.span5
-						.contents
-							.row
-								#recSongDisplay.row
-									form#searchform.form-search
-										.input-append
-											input#searchsong.input-large.span4.search-query(type='text')
-											button#searchbutton.btn(type='submit')
-												| Search
-									ul#songsList.nav.nav-tabs.nav-stacked
-					#right-col.span7
-						.contents
-							#finalRight.row
-								#prompt
-									h3(style='font-size: 30px; font-weight: 100;') Please choose a song:
-								#youtubeFrame.
-								#youtubeOptions.hidden
-									ul.nav.nav-tabs
-										li.active
-											a(href='#lyrics', data-toggle='tab')
-												p.youNav
-													| Lyrics
-										li
-											a(href='#karaoke', data-toggle='tab')
-												p.youNav
-													| Karaoke
-										li
-											a(href='#covers', data-toggle='tab')
-												p.youNav
-													| Covers
-									.tab-content.youtube
-										#lyrics.tab-pane.active
-										#karaoke.tab-pane
-										#covers.tab-pane
-		section#foot.section.footer-box
-			.footer.container(style='padding-top: 5px;')
-				p(style='color: #FFFFFF; font-weight: 100; font-size: 13px;')
-					| Vocalet 2013 | Made by Pranav Rajpurkar and Vincent Su
-		script(src='./javascripts/jquery-1.9.1.min.js')
-		script(src='./javascripts/bootstrap.min.js')
+extends layout
+block extralinks
+	link(rel='stylesheet', href='stylesheets/main.css')
+
+block content
+	section#content-section.section
+		.container
+			.row
+				#right-col.col-md-6.col-md-push-5
+					.contents
+						#finalRight.row
+							#prompt
+								h3 Please choose a song:
+							#youtubeFrame.
+							#youtubeOptions.hidden
+								ul.nav.nav-tabs.nav-justified
+									li.active
+										a(href='#lyrics', data-toggle='tab')
+											p.youNav
+												| Lyrics
+									li
+										a(href='#karaoke', data-toggle='tab')
+											p.youNav
+												| Karaoke
+									li
+										a(href='#covers', data-toggle='tab')
+											p.youNav
+												| Covers
+								.tab-content.youtube
+									#lyrics.tab-pane.active
+									#karaoke.tab-pane
+									#covers.tab-pane
+				#left-col.col-md-5.col-md-pull-6
+					.contents
+						.row
+							#recSongDisplay.row
+								form#searchform(action='/search', method='get')
+									#header-src-wrap.input-group.input-group-lg
+										input#searchsong.form-control(type='search', name='c', autocomplete='off')
+										span.input-group-btn
+											button#searchbutton.btn.btn-default(type='submit')
+												span.glyphicon.glyphicon-search
+								ul#songsList.nav.nav-tabs.nav-stacked
+	block extrascripts
 		script(src='./javascripts/main.js')
