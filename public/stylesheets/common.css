@@ -4,6 +4,9 @@ form{
  
 }
 
+.row{
+    height: 100%;
+}
 
 #left{
     height:100%;
