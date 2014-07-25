@@ -8,14 +8,6 @@ function show(elem) {
 	$(elem).addClass('visible');
 }
 
-
-$("#nameEnter").on("click", function(event) {
-	show('.later');
-	show('#passwordPrompt');
-	hide('.first');
-	hide('#emailPrompt');
-});
-
 $('#signup').on("click", function(event) {
 	$('#signupForm').submit();
 });
