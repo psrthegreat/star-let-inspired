@@ -73,7 +73,6 @@
 	$(".youtube").on("click", ".youtubeSelection", function() {
 		if (!$('#youframe').length) {
 			show('#youtubeFrame');
-			//<h3 style= "font-size: 40px; font-weight: 100;text-shadow:0 -1px 1px rgba(0,0,0,0.1);">Vocalet</h3>
 			$('#youtubeFrame').html('<iframe id="youframe" type="text/html" height="300" width="100%" frameborder="0"></iframe>');
 		}
 		var link = $(this).attr('id');
