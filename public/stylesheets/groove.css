@@ -5,17 +5,22 @@ form{
 }
 
 #left, #right{
-    height:600px;
+    height: 100%;
 }
 
 #main-row{
-    height: 100%;
+    min-height: 100%;
 }
 
 .main{
     background-image: url('../images/lined_paper.png');
     background-repeat: repeat;
-    height: 100%;
+    min-height: 100%;
+}
+
+#imp{
+    min-height: 500px;
+    margin: 30px 0px;
 }
 
 textarea, textarea:active, textarea:hover, textarea:focus{
