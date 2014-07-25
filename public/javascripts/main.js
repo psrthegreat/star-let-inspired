@@ -17,7 +17,7 @@
 		}).done(function(xml) {
 			$(xml).find('entry').each(function() {
 				var songTitle = $(this).find('title').text();
-				$(tab).append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + songTitle + '</a></li>');
+				$(tab).append('<li class = "recommendationSelection"><a href="#">' + songTitle + '</a></li>');
 			});
 		}).fail(function() {
 			$(tab).html("Could not get your star songlist. Please check your internet connection.");
@@ -40,7 +40,7 @@
 				var link = $(this).find("id").text();
 				var videoID = link.substr(link.search('video:') + 6);
 				if (artist.search(/vevo/i) == -1) {
-					$('#' + tab).append('<div class = "media well youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src=' + imageSource + '><div class = "media-body" style = "font-size: 16px;font-weight: 100;"><strong class= "media" style= "font-weight: 200">' + title + '</strong><p style = "font-weight: 100; font-size: 10px;">' + artist + '</p></div></div>');
+					$('#' + tab).append('<div class = "media youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/200x100" alt="200x100" src=' + imageSource + '><div class = "media-body"><p class = "yttitle">' + title + '</p><p class="ytartist">' + artist + '</p></div></div>');
 				}
 			});
 		}).fail(function(data) {
@@ -49,14 +49,14 @@
 	}
 
 	function searchYoutubeMultiple(song) {
-		searchYoutube(song, 5, "lyrics");
-		searchYoutube(song, 5, "karaoke");
-		searchYoutube(song, 6, "covers");
+		searchYoutube(song, 4, "lyrics");
+		searchYoutube(song, 4, "karaoke");
+		searchYoutube(song, 4, "covers");
 	}
 
 	function startYoutube(query){
 		searchYoutubeMultiple(query);
-		$('#youtubeFrame').html("<h3 style= 'font-size: 30px; font-weight: 100;'>Now choose a track from below:</h3>");
+		$('#youtubeFrame').html("<h3 id='choose'>Now choose a track from below:</h3>");
 		show('#youtubeOptions');
 		hide('#prompt');
 	}
@@ -74,10 +74,10 @@
 		if (!$('#youframe').length) {
 			show('#youtubeFrame');
 			//<h3 style= "font-size: 40px; font-weight: 100;text-shadow:0 -1px 1px rgba(0,0,0,0.1);">Vocalet</h3>
-			$('#youtubeFrame').html('<iframe id="youframe" type="text/html" height="300" width="100%" src="" allowfullscreen frameborder="0"></iframe>');
+			$('#youtubeFrame').html('<iframe id="youframe" type="text/html" height="300" width="100%" frameborder="0"></iframe>');
 		}
 		var link = $(this).attr('id');
-		$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=1&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
+		$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
 		return false;
 	});
 
@@ -87,14 +87,14 @@
 			var song = result.song;
 			var artist = result.artist;
 			var total = song + " - " + artist;
-			$('#songsList').append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + total + '</a></li>');
+			$('#songsList').append('<li class = "recommendationSelection"><a class = "leftopts" href="#">' + total + '</a></li>');
 		}
 	}
 
 	function useData2(data) {
 		for (var i = 0; i < data.length; i++) {
 			var result = data[i];
-			$('#songsList').append('<li class = "recommendationSelection"><a href="#" style = "font-weight: 200; font-size: 18px;">' + result + '</a></li>');
+			$('#songsList').append('<li class = "recommendationSelection"><a class ="leftopts" href="#">' + result + '</a></li>');
 		}
 	}
 
@@ -106,7 +106,7 @@
 
 	function makeRequest() {
 		$.ajax({
-			url : "https://itunes.apple.com/us/rss/topsongs/limit=8/xml",
+			url : "https://itunes.apple.com/us/rss/topsongs/limit=15/xml",
 			dataType : 'xml',
 		}).done(function(xml) {
 			var arr = [];
