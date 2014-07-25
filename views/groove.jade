@@ -10,6 +10,7 @@ html
 		link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
 		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600', rel='stylesheet')
 		link(rel='stylesheet', href='stylesheets/common.css')
+		link(rel='stylesheet', href='stylesheets/groove.css')
 		section#top.container
 			.navbar
 				.navbar-inner
@@ -17,15 +18,16 @@ html
 						img#logo(src='images/logo.png')
 						| Vocalet
 		section.main
-			.container(style="height:100%")
-				#left.col-md-6
-					form#hi
-						textarea#imp
-							|Hey
-				.col-md-6
-				#right.col-md-6
-					h2 Playing Right Now...
-					#player
+			.container
+				.row#main-row
+					#right.col-md-6.col-md-push-6
+						h2 Playing Right Now...
+						#player
+						h2 Up Next...
+					#left.col-md-6.col-md-pull-6
+						form#hi
+							textarea#imp
+								|Hey
 		#footer-box.navbar-static-bottom
 				| Vocalet 2013 | Made by 
 				a#shmp(href='http://www.stanford.edu/~pranavsr')
@@ -52,7 +54,7 @@ html
 					width: '100%',
 					videoId: '0Bmhjf0rKe8',
 					playerVars: {'autohide': 1,
-					'controls': 0,
+					'controls': 2,
 					'enablejsapi': 1,
 					'fs': 0,
 					'iv_load_policy': 3,
@@ -65,7 +67,6 @@ html
 					}
 				});
 			}
-
 			// when video ends
 			function onPlayerStateChange(event) {        
 				if(event.data === 0) {          
