@@ -1,0 +1,32 @@
+!!! 5
+html
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+		title Vocalet
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+		link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
+		link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
+		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600', rel='stylesheet')
+		link(rel='stylesheet', href='stylesheets/common.css')
+		block extralinks
+
+	body
+		section#top.container
+			.navbar
+				.navbar-inner
+					a.brand(href='/')
+						img#logo(src='images/logo.png')
+						| Vocalet
+		block content
+
+		#footer-box.navbar-static-bottom
+				| Vocalet 2013 | Made by 
+				a#shmp(href='http://www.stanford.edu/~pranavsr')
+					| Pranav Rajpurkar 
+				| and Vincent Su
+			script(src='./javascripts/jquery-1.9.1.min.js')
+			script(src='./javascripts/bootstrap.min.js')
+
+		block extrascripts
