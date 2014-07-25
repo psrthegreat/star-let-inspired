@@ -16,10 +16,16 @@ html
 					a.brand(href='/')
 						img#logo(src='images/logo.png')
 						| Vocalet
-		.main.container(style="height:100%")
-			form#hi
-				textarea#imp
-					|Hey
+		section.main
+			.container(style="height:100%")
+				#left.col-md-6
+					form#hi
+						textarea#imp
+							|Hey
+				.col-md-6
+				#right.col-md-6
+					h2 Playing Right Now...
+					#player
 		#footer-box.navbar-static-bottom
 				| Vocalet 2013 | Made by 
 				a#shmp(href='http://www.stanford.edu/~pranavsr')
@@ -27,9 +33,42 @@ html
 				| and Vincent Su
 		script(src='javascripts/jquery-1.9.1.min.js')
 		script(src='javascripts/bootstrap.min.js')
-		<SCRIPT SRC="http://mobwrite3.appspot.com/static/compressed_form.js"></SCRIPT>
-		SCRIPT.
+		script(src='javascripts/groove.js')
+		script(src="http://mobwrite3.appspot.com/static/compressed_form.js")
+		script.
 			mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
 			$(document).ready(function(){
+				mobwrite.idPrefix = 'woah';
+				mobwrite.nullifyAll = false;
+				mobwrite.timeoutInterval = 3000000;
 				mobwrite.share('imp');
 			});
+		script(src="http://www.youtube.com/player_api")
+		script.
+			var player;
+			function onYouTubePlayerAPIReady() {
+				player = new YT.Player('player', {
+					height: '300',
+					width: '100%',
+					videoId: '0Bmhjf0rKe8',
+					playerVars: {'autohide': 1,
+					'controls': 0,
+					'enablejsapi': 1,
+					'fs': 0,
+					'iv_load_policy': 3,
+					'modestbranding': 1,
+					'rel': 0,
+					'showinfo': 0,
+					'autoplay': 0},
+					'events': {
+						'onStateChange': onPlayerStateChange
+					}
+				});
+			}
+
+			// when video ends
+			function onPlayerStateChange(event) {        
+				if(event.data === 0) {          
+					alert('done');
+				}
+			}
