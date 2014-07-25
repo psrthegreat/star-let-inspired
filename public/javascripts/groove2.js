@@ -1,4 +1,4 @@
-var socket = io.connect();
+//var socket = io.connect();
 
 var player;
 
@@ -30,7 +30,7 @@ function change(){
 		var next = cur.substring(cur.indexOf('\n') + 1);
 		$('#imp').val(next);
 
-		socket.emit('curbroad', {'cur': title});
+		//socket.emit('curbroad', {'cur': title});
 		$('#current').text(title);
 	});
 }
