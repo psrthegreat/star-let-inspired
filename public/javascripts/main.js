@@ -80,45 +80,9 @@
 		return false;
 	});
 
-	function useData(data) {
-		for (var i = 0; i < data.length; i++) {
-			var result = data[i];
-			var song = result.song;
-			var artist = result.artist;
-			var total = song + " - " + artist;
-			$('#songsList').append('<li class = "recommendationSelection"><a class = "leftopts" href="#">' + total + '</a></li>');
-		}
-	}
-
-	function useData2(data) {
-		for (var i = 0; i < data.length; i++) {
-			var result = data[i];
-			$('#songsList').append('<li class = "recommendationSelection"><a class ="leftopts" href="#">' + result + '</a></li>');
-		}
-	}
-
 	$('#searchform').submit(function() {
 		var query = $('#searchform :input').val();
 		startYoutube(query);
 		return false;
 	});
-
-	function makeRequest() {
-		$.ajax({
-			url : "https://itunes.apple.com/us/rss/topsongs/limit=15/xml",
-			dataType : 'xml',
-		}).done(function(xml) {
-			var arr = [];
-			$(xml).find('entry').each(function() {
-				var element = {};
-				element.id = $(this).find('id').attr('im:id');
-				element.title = $(this).find('title').text();
-				arr.push(element.title);
-			});
-			useData2(arr)
-			return arr;
-		});
-	}
-
-	var art = makeRequest();
 })($);
