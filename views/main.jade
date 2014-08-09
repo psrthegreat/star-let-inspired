@@ -41,5 +41,8 @@ block content
 											button#searchbutton.btn.btn-default(type='submit')
 												span.glyphicon.glyphicon-search
 								ul#songsList.nav.nav-tabs.nav-stacked
-	block extrascripts
-		script(src='javascripts/main.js')
+									each result in results
+										li.recommendationSelection
+											a.leftopts(href="#")= result
+block extrascripts
+	script(src='javascripts/main.js')
