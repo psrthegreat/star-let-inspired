@@ -1,11 +1,11 @@
 var express = require('express'),
-	http = require('http'),
-	path = require('path'),
-  mongoose = require ('mongoose'),
-  request = require('request'),
-  parseString = require('xml2js').parseString,
-  memoize = require('memoizee'),
-  async = require('async');
+http = require('http'),
+path = require('path'),
+mongoose = require ('mongoose'),
+request = require('request'),
+parseString = require('xml2js').parseString,
+memoize = require('memoizee'),
+async = require('async');
 
 var uristring =
 process.env.MONGOLAB_URI ||
@@ -25,7 +25,6 @@ var getSongs = function(callback){
   });
 }
 
-memoized = memoize(getSongs, {primitive: true, async: true,  maxAge: 10000000});
 
 var app = express();
 
@@ -63,8 +62,8 @@ app.get('/groove', function(req, res){
 
 function getSongsFromYoutube(song, type, callback){
   request("https://gdata.youtube.com/feeds/api/videos?q=" + song + " " + type + "&max-results=4&format=5&v=2", function(err, response, body){
-      if(err){ callback(null, err);}
-      parseString(body, function (err, result) {
+    if(err){ callback(null, err);}
+    parseString(body, function (err, result) {
       var entries = result.feed.entry;
       var results = [];
       entries.forEach(function(entry){
@@ -87,8 +86,7 @@ app.get('/try', function(req, res){
   });
 });
 
-app.get('/songs/:name', function(req, res){
-  var songname = req.params.name;
+function getSongsFromYoutubeWrapper(songname, callback){
   async.parallel({
     lyrics: function(callback){
       getSongsFromYoutube(songname, 'lyrics', function(result, err){
@@ -108,12 +106,21 @@ app.get('/songs/:name', function(req, res){
         callback(null, result);
       });
     }
-    }, function(err, results){
-      if(err) console.log(err);
-      res.send(results);
-    });
-    
+  }, function(err, results){
+    if(err) console.log(err);
+    callback(results);
   });
+}
+
+
+memoized = memoize(getSongsFromYoutubeWrapper, {primitive: true, async: true,  maxAge: 10000000});
+
+app.get('/songs/:name', function(req, res){
+  var songname = req.params.name;
+  memoized(songname, function(results){
+    res.send(results);
+  });
+});
 
 
 var s = http.createServer(app);
@@ -126,14 +133,14 @@ var io = require('socket.io')(s);
 io.on('connection', function (socket) {
   socket.on('curbroad', function (data) {
     console.log(data)
-     socket.broadcast.emit('data', { cur: data.cur });
+    socket.broadcast.emit('data', { cur: data.cur });
   });
 });
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
-  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
   } else {
-  console.log ('Succeeded connected to: ' + uristring);
+    console.log ('Succeeded connected to: ' + uristring);
   }
 });
