@@ -6,14 +6,14 @@ block content
 	section.main
 		.container
 			.row#main-row
-				#right.col-md-6.col-md-push-6
+				#right.col-md-6.col-md-push-5
 					h2#cur Playing Right Now...
 					h1#current
-					#player
+					#player.embed-responsive-16by9
 					if dj
-						button#signup#btny.col-md-12.btn-primary(type='submit')
+						button#signup#btny.col-xs-12.btn-primary(type='submit')
 							h2| Next
-				#left.col-md-6.col-md-pull-6
+				#left.col-md-4.col-md-pull-5
 					form
 						textarea#imp
 							|Hey

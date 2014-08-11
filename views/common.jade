@@ -13,17 +13,18 @@ html
 		block extralinks
 
 	body
-		section#top.container
-			.navbar
-				.navbar-inner
-					a.brand(href='/')
-						img#logo(src='images/logo.png')
-						| Vocalet
-		block content
-
+		#wrap
+			section#top
+				.navbar
+					.container
+						.navbar-inner
+							a.brand(href='/')
+								img#logo(src='images/logo.png')
+								| Vocalet
+			block content
 		#footer-box.navbar-static-bottom
-				| Vocalet 2014 | Made by Pranav Rajpurkar and Vincent Su
-		
+			| Vocalet 2014 | Made by Pranav Rajpurkar and Vincent Su
+			
 		script(src='/javascripts/jquery-1.9.1.min.js')
 		script(src='/javascripts/bootstrap.min.js')
 		block extrascripts

@@ -7,8 +7,13 @@ html, body {
 body{
     border-top: 5px solid #D84A38;
     background: rgb(254, 254, 254);
-    font-family: 'Open Sans', sans-serif;
     text-shadow: none;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    margin: 0 auto -30px;
 }
 
 h1,h2,h3,h4,p, a{
@@ -53,13 +58,13 @@ a:link, a:visited, a:hover {
 }
 
 .navbar {
-    margin: 0 0 5px;
-    padding-top: 17px;
+    margin: 0 0 0px;
+    padding-top: 20px;
     padding-bottom: 3px;
 }
 
 .navbar-inner {
-    min-height: 20px;
+    min-height: 10px;
     border: none;
     background: transparent;
     box-shadow: none;
@@ -70,7 +75,8 @@ a:link, a:visited, a:hover {
 
 .navbar .brand {
     color: rgb(255, 37, 37);
-    font-size: 24px;
+    font-size: 40px;
+    font-weight: 100;
     padding: 0;
     margin-left: 0;
 }
@@ -86,6 +92,7 @@ a:link, a:visited, a:hover {
     font-size: 14px;
     line-height: 30px;
     color: #fff;
+    height: 30px;
 }
 
 #youtubeFrame {

@@ -1,25 +1,24 @@
 .recommendationSelection{
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #eee;
+	line-height: 2.0em;
+	font-weight: 300;
+	font-size: 12px;
 }
 
-#content-section {
-	padding: 30px 0px;
-	background-image: url('../images/pattern.png');
-	background-repeat: repeat;
-	min-height: 100%;
+#options{
+	padding: 0px;
 }
 
-.contents {
-	margin-right: 30px;
-	margin-left: 30px;
-}
-
-#songsList {
-	background-color: rgba(255,255,255,0.8);
+#content-section{
+	padding-bottom: 50px;
 }
 
 .leftopts{
 	font-size: 20px;
+}
+
+#left-col{
+	padding-bottom: 60px;
 }
 
 #youtubeOptions {
@@ -27,26 +26,29 @@
 }
 
 .nav-tabs.nav-justified > li{
-	background: #eee;
 }
 
 .youNav {
-	font-size: 30px;
+	font-size: 20px;
+	margin-top: 10px;
+}
+
+#right-col, #left-col{
+    padding-top: 20px;
 }
 
 .youtubeSelection {
-margin-top: 0px;
-padding: 10px 10px;
-cursor: pointer;
-background-color: rgb(245,245,245);
-border-top: 1px solid #eee;
+	padding: 0px 0px;
+	margin: 0px;
+	cursor: pointer;
 }
 .youtubeSelection:hover {
 	background-color: rgb(228, 228, 228);
 }
 
 .yttitle{
-	font-size: 18px;
+	font-size: 13px;
+	font-weight: 300;
 }
 
 .nav-tabs.nav-stacked > li > a {
@@ -54,24 +56,15 @@ border-top: 1px solid #eee;
 }
 
 .nav-tabs.nav-stacked > li > a:hover {
-	background: rgb(255, 37, 37);
-	opacity: 0.8;
-	color: #fff;
-}
-
-.nav-tabs.nav-stacked > .active > a {
-	background: rgb(255, 37, 37);
-	opacity: 1;
-	color: #fff;
+	background: none;
+	border: none;
 }
 
 .pull-left, media-object{
-	width: 170px;
-	height: 100px;
 }
 
 .input-group-lg > .form-control, .input-group-lg > .input-group-addon, .input-group-lg > .input-group-btn > .btn {
-	border-radius: 36px;
+	border-radius: 0;
 	}
 
 #searchbutton{
@@ -80,9 +73,12 @@ border-top: 1px solid #eee;
 }
 
 #searchform{
-	margin: 20px 0px;
+	margin-bottom: 10px;
+}
+#songsList > li{
+	cursor: pointer;
 }
 
-#choose{
-	font-size: 30px;
+#songsList > li:hover, #songsList > .active{
+	font-weight: 400;
 }

@@ -3,46 +3,37 @@ block extralinks
 	link(rel='stylesheet', href='stylesheets/main.css')
 
 block content
-	section#content-section.section
+	section#content-section
 		.container
 			.row
-				#right-col.col-md-6.col-md-push-5
-					.contents
-						#finalRight.row
-							#prompt
-								h3 Please choose a song:
-							#youtubeFrame.
-							#youtubeOptions.hidden
-								ul.nav.nav-tabs.nav-justified
-									li.active
-										a(href='#lyrics', data-toggle='tab')
-											p.youNav
-												| Lyrics
-									li
-										a(href='#karaoke', data-toggle='tab')
-											p.youNav
-												| Karaoke
-									li
-										a(href='#covers', data-toggle='tab')
-											p.youNav
-												| Covers
-								.tab-content.youtube
-									#lyrics.tab-pane.active
-									#karaoke.tab-pane
-									#covers.tab-pane
-				#left-col.col-md-5.col-md-pull-6
-					.contents
-						.row
-							#recSongDisplay.row
-								form#searchform(action='/search', method='get')
-									#header-src-wrap.input-group.input-group-lg
-										input#searchsong.form-control(type='search', name='c', autocomplete='off')
-										span.input-group-btn
-											button#searchbutton.btn.btn-default(type='submit')
-												span.glyphicon.glyphicon-search
-								ul#songsList.nav.nav-tabs.nav-stacked
-									each result in results
-										li.recommendationSelection
-											a.leftopts(href="#")= result
+				#right-col.col-sm-4.col-sm-push-6
+					#prompt
+						h3 Please choose a song:
+					#youtubeFrame.embed-responsive.embed-responsive-16by9.hidden
+					#youtubeOptions.hidden
+						#options
+							.youNav
+								p Lyrics
+							#lyrics
+							.clearfix
+							.youNav
+								p Karaoke
+							#karaoke
+							.clearfix
+							.youNav
+								p Covers
+							#covers
+							.clearfix
+				#left-col.col-sm-4.col-sm-offset-2.col-sm-pull-4
+					#recSongDisplay
+						form#searchform(action='/search', method='get')
+							#header-src-wrap.input-group.input-group-lg
+								input#searchsong.form-control(type='search', name='c', autocomplete='off')
+								span.input-group-btn
+									button#searchbutton.btn.btn-default(type='submit')
+										span.glyphicon.glyphicon-search
+						ul#songsList.nav.nav-tabs.nav-stacked
+							each result in results
+								li.recommendationSelection=result
 block extrascripts
 	script(src='javascripts/main.js')
