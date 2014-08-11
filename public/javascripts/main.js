@@ -23,41 +23,24 @@
 			$(tab).html("Could not get your star songlist. Please check your internet connection.");
 		});
 	}
-
-	//dumpPopularSongs(14, 15, "#songsList");
-
-
-	function searchYoutube(query, limit, tab) {
-		$.ajax({
-			url : "https://gdata.youtube.com/feeds/api/videos?q=" + query + " " + tab + "&max-results=" + limit + "&format=5&v=2",
-			dataType : 'xml',
-		}).done(function(xml) {
-			$('#' + tab).html("");
-			$(xml).find('entry').each(function() {
-				var title = $(this).children('title').text();
-				var artist = $(this).children('author').children('name').text();
-				var imageSource = $(this).find("media\\:thumbnail, thumbnail").first().attr('url');
-				var link = $(this).find("id").text();
-				var videoID = link.substr(link.search('video:') + 6);
-				if (artist.search(/vevo/i) == -1) {
-					$('#' + tab).append('<div class = "media youtubeSelection" id=' + videoID + '><img class="pull-left media-object" data-src="holder.js/200x100" alt="200x100" src=' + imageSource + '><div class = "media-body"><p class = "yttitle">' + title + '</p><p class="ytartist">' + artist + '</p></div></div>');
-				}
-			});
-		}).fail(function(data) {
-			$('#' + tab).html("Could not get your videos. Please check your internet connection.");
-		});
-	}
+	
 
 	function searchYoutubeMultiple(song) {
-		searchYoutube(song, 4, "lyrics");
-		searchYoutube(song, 4, "karaoke");
-		searchYoutube(song, 4, "covers");
+		$.ajax({
+			url : "/songs/" + song
+		}).done(function(result) {
+			for(var tab in result){
+				$('#' + tab).empty();
+				result[tab].map(function(item){
+					$('#' + tab).append('<div class = "col-xs-3 youtubeSelection" id=' + item.id + '><img alt="..." height="75px" width="100%" src=' + item.image + '></div>');
+				});
+			}
+		});
+		show('#youtubeOptions');
 	}
 
 	function startYoutube(query){
 		searchYoutubeMultiple(query);
-		$('#youtubeFrame').html("<h3 id='choose'>Now choose a track from below:</h3>");
-		show('#youtubeOptions');
 		hide('#prompt');
 	}
 
@@ -70,13 +53,14 @@
 		return false;
 	});
 
-	$(".youtube").on("click", ".youtubeSelection", function() {
+	$(document).on('click', ".youtubeSelection", function() {
 		if (!$('#youframe').length) {
 			show('#youtubeFrame');
-			$('#youtubeFrame').html('<iframe id="youframe" type="text/html" height="300" width="100%" frameborder="0"></iframe>');
+			$('#youtubeFrame').html('<iframe id="youframe" type="text/html"></iframe>');
 		}
 		var link = $(this).attr('id');
-		$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;html5=1&amp;");
+		console.log(link)
+		$('#youframe').attr('src', "http://www.youtube.com/embed/" + link + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;loop=0&amp;rel=0&amp;iv_load_policy=3;wmode=transparent&amp;enablejsapi=1&amp;modestbranding=1&amp;playsinline=1&amp;html5=1&amp;");
 		return false;
 	});
 

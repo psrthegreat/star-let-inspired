@@ -4,7 +4,8 @@ var express = require('express'),
   mongoose = require ('mongoose'),
   request = require('request'),
   parseString = require('xml2js').parseString,
-  memoize = require('memoizee');
+  memoize = require('memoizee'),
+  async = require('async');
 
 var uristring =
 process.env.MONGOLAB_URI ||
@@ -46,12 +47,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/try', function(req, res){
-  memoized(function(response){
-    res.send(response);
-  });
-});
-
 app.get('/', function (req, res){
 	res.render('login');
 });
@@ -66,8 +61,59 @@ app.get('/groove', function(req, res){
   res.render('groove', {dj: req.query.dj});
 });
 
-app.get('/songs', function(req, res){
+function getSongsFromYoutube(song, type, callback){
+  request("https://gdata.youtube.com/feeds/api/videos?q=" + song + " " + type + "&max-results=4&format=5&v=2", function(err, response, body){
+      if(err){ callback(null, err);}
+      parseString(body, function (err, result) {
+      var entries = result.feed.entry;
+      var results = [];
+      entries.forEach(function(entry){
+        entryObj = {};
+        entryObj.title = entry.title[0];
+        entryObj.author =  entry.author[0].name[0];
+        entryObj.image = entry['media:group'][0]['media:thumbnail'][0]['$']['url'];
+        var idStr = entry.id[0];
+        entryObj.id = idStr.substr(idStr.search('video:') + 6);
+        results.push(entryObj);
+      });
+      callback(results);
+    });
+  });
+}
+
+app.get('/try', function(req, res){
+  getSongsFromYoutube('hey there delilah', "lyrics", function(result){
+    res.send(result);
+  });
 });
+
+app.get('/songs/:name', function(req, res){
+  var songname = req.params.name;
+  async.parallel({
+    lyrics: function(callback){
+      getSongsFromYoutube(songname, 'lyrics', function(result, err){
+        if(err){callback(err, null);}
+        callback(null, result);
+      });
+    },
+    karaoke: function(callback){
+      getSongsFromYoutube(songname, 'karaoke', function(result, err){
+        if(err){callback(err, null);}
+        callback(null, result);
+      });
+    },
+    covers: function(callback){
+      getSongsFromYoutube(songname, 'covers', function(result, err){
+        if(err){callback(err, null);}
+        callback(null, result);
+      });
+    }
+    }, function(err, results){
+      if(err) console.log(err);
+      res.send(results);
+    });
+    
+  });
 
 
 var s = http.createServer(app);
