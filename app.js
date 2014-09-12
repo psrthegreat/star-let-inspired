@@ -7,11 +7,6 @@ parseString = require('xml2js').parseString,
 memoize = require('memoizee'),
 async = require('async');
 
-var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/vocalet';
-
 var getSongs = function(callback){
   request("https://itunes.apple.com/us/rss/topsongs/limit=15/xml", function(err, response, body){
     parseString(body, function (err, result) {
@@ -39,7 +34,7 @@ app.configure(function(){
   app.use(express.session({ secret: 'mysecret',cookie: {maxAge: 3600 *1000}}));
   app.use(express.session());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'public'), {maxAge: '100d'}));
 });
 
 app.configure('development', function(){
@@ -135,12 +130,4 @@ io.on('connection', function (socket) {
     console.log(data)
     socket.broadcast.emit('data', { cur: data.cur });
   });
-});
-
-mongoose.connect(uristring, function (err, res) {
-  if (err) {
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-  } else {
-    console.log ('Succeeded connected to: ' + uristring);
-  }
 });
