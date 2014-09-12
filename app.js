@@ -20,7 +20,6 @@ var getSongs = function(callback){
   });
 }
 
-
 var app = express();
 
 app.configure(function(){
@@ -44,9 +43,10 @@ app.configure('development', function(){
 app.get('/', function (req, res){
 	res.render('login');
 });
+
 app.get('/main', function (req, res){
   getSongs(function(results){
-    res.render('main', {results: results});
+    res.render('main', {results: results, 'song': req.query.q});
   });
 });
 
@@ -74,12 +74,6 @@ function getSongsFromYoutube(song, type, callback){
     });
   });
 }
-
-app.get('/try', function(req, res){
-  getSongsFromYoutube('hey there delilah', "lyrics", function(result){
-    res.send(result);
-  });
-});
 
 function getSongsFromYoutubeWrapper(songname, callback){
   async.parallel({
