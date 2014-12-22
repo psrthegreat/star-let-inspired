@@ -1,15 +1,4 @@
 (function($){
-
-	function hide(elem) {
-		$(elem).removeClass('visible');
-		$(elem).addClass('hidden');
-	}
-
-	function show(elem) {
-		$(elem).removeClass('hidden');
-		$(elem).addClass('visible');
-	}
-	
 	function startYoutube(query, callback){
 		$.ajax({
 			url : "/songs/" + query
@@ -57,8 +46,7 @@
 	});
 
 	$(document).ready(function(){
-		console.log(window.song);
-		if(window.song !== undefined){
+		if(window.song !== undefined && window.song !== ""){
 			startYoutube(window.song, function(){
 				startYouframe($('.youtubeSelection').first().attr('id'));
 			});
