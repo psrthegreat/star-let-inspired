@@ -1,33 +1,12 @@
-extends common
-block extralinks
-	link(rel='stylesheet', href='stylesheets/groove.css')
-
-block content
-	section.main
-		.container
-			.row#main-row
-				#right.col-md-6.col-md-push-5
-					h2#cur Playing Right Now...
-					h1#current
-					#player.embed-responsive-16by9
-					if dj
-						button#signup#btny.col-xs-12.btn-primary(type='submit')
-							h2| Next
-				#left.col-md-4.col-md-pull-5
-					form
-						textarea#imp
-block extrascripts
-	script(src="http://mobwrite3.appspot.com/static/compressed_form.js")
-	script.
-		mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
-		$(document).ready(function(){
-			mobwrite.idPrefix = 'woah';
-			mobwrite.nullifyAll = false;
-			mobwrite.timeoutInterval = 3000000;
-			mobwrite.share('imp');
-		});
-	script(src="/socket.io/socket.io.js")
-	if dj
-		script(src='javascripts/groove2.js')
-	else
-		script(src='javascripts/groove.js')
+html
+  head
+    title dj-vocalet
+    |   
+    meta(http-equiv='refresh', content="0;URL='http://dj.vocalet.com'")
+  |   
+  body
+    p
+      | This page has moved to a 
+      a(href='http://dj.vocalet.com')
+        | dj.vocalet.com
+      | .

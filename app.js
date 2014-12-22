@@ -51,8 +51,7 @@ app.get('/main', function (req, res){
 });
 
 app.get('/groove', function(req, res){
-  console.log(req.query.dj);
-  res.render('groove', {dj: req.query.dj});
+  res.render('groove');
 });
 
 function getSongsFromYoutube(song, type, callback){
@@ -115,13 +114,4 @@ app.get('/songs/:name', function(req, res){
 var s = http.createServer(app);
 s.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-});
-
-var io = require('socket.io')(s);
-
-io.on('connection', function (socket) {
-  socket.on('curbroad', function (data) {
-    console.log(data)
-    socket.broadcast.emit('data', { cur: data.cur });
-  });
 });
