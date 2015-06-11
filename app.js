@@ -55,22 +55,20 @@ app.get('/groove', function(req, res){
 });
 
 function getSongsFromYoutube(song, type, callback){
-  request("https://gdata.youtube.com/feeds/api/videos?q=" + song + " " + type + "&max-results=4&format=5&v=2", function(err, response, body){
+  request('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&q=' + song + ' ' + type + '&maxResults=4' + '&key=AIzaSyD_yxaqfo6k7yXLl5tqelE0ZQYay7KoCyo', function(err, response, body){
     if(err){ callback(null, err);}
-    parseString(body, function (err, result) {
-      var entries = result.feed.entry;
-      var results = [];
-      entries.forEach(function(entry){
-        entryObj = {};
-        entryObj.title = entry.title[0];
-        entryObj.author =  entry.author[0].name[0];
-        entryObj.image = entry['media:group'][0]['media:thumbnail'][0]['$']['url'];
-        var idStr = entry.id[0];
-        entryObj.id = idStr.substr(idStr.search('video:') + 6);
-        results.push(entryObj);
-      });
-      callback(results);
-    });
+    var data = JSON.parse(body);
+    var results = [];
+    for(var i = 0; i < data.items.length; i++){
+        var item = data.items[i];
+        console.log(item)
+        entryObj = {}
+        entryObj.title = item.snippet.title
+        entryObj.image = item.snippet.thumbnails.default.url
+        entryObjid = item.id.videoId
+        results.push(entryObj)
+    }
+    callback(results)
   });
 }
 
@@ -107,6 +105,7 @@ app.get('/songs/:name', function(req, res){
   var songname = req.params.name;
   memoized(songname, function(results){
     res.send(results);
+    console.log(results);
   });
 });
 
