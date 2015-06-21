@@ -65,7 +65,7 @@ function getSongsFromYoutube(song, type, callback){
         entryObj = {}
         entryObj.title = item.snippet.title
         entryObj.image = item.snippet.thumbnails.default.url
-        entryObjid = item.id.videoId
+        entryObj.id = item.id.videoId
         results.push(entryObj)
     }
     callback(results)
