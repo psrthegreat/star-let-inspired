@@ -61,7 +61,6 @@ function getSongsFromYoutube(song, type, callback){
     var results = [];
     for(var i = 0; i < data.items.length; i++){
         var item = data.items[i];
-        console.log(item)
         entryObj = {}
         entryObj.title = item.snippet.title
         entryObj.image = item.snippet.thumbnails.default.url
@@ -105,7 +104,6 @@ app.get('/songs/:name', function(req, res){
   var songname = req.params.name;
   memoized(songname, function(results){
     res.send(results);
-    console.log(results);
   });
 });
 
